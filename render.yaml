@@ -52,7 +52,7 @@ services:
 
       # --- Public URL ---
       - key: APP_URL
-        value: https://gprana-backend-2smg.onrender.com
+        value: https://gprana-backend.onrender.com
 
       # --- AI (optional) ---
       - key: GEMINI_API_KEY

@@ -6,7 +6,7 @@
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "https://gprana-backend-2smg.onrender.com/api/$1"
+      "destination": "https://gprana-backend.onrender.com/api/$1"
     },
     {
       "source": "/(.*)",
