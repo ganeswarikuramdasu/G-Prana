@@ -97,7 +97,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onOpenLogin }) => {
       >
         <nav className="w-full max-w-6xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
           <a href="#top" className="flex items-center gap-2.5">
-            <img src="/gprana-logo.png" alt="G-Prana" className="w-8 h-8 object-contain" style={{ filter: `drop-shadow(0 4px 14px ${C.neon}66)` }} />
+            <img src="/gprana-icon.svg" alt="G-Prana" className="w-8 h-8 drop-shadow-lg" style={{ filter: `drop-shadow(0 4px 14px ${C.neon}66)` }} />
             <div className="leading-none">
               <span className="text-[17px] font-bold tracking-tight text-white block">G-Prana</span>
               <span className="text-[9px] font-bold tracking-[0.18em] uppercase block mt-0.5" style={{ color: C.neonBright }}>
