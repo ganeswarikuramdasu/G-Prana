@@ -221,7 +221,7 @@ export const AccessCardView: React.FC<AccessCardViewProps> = ({
     return (
       <div className="p-12 text-center text-slate-500 space-y-3">
         <RefreshCw className="w-8 h-8 text-[#17C964] animate-spin mx-auto" />
-        <p className="text-xs font-mono">Verifying NexusHealth Card Ledger & Token Security...</p>
+        <p className="text-xs font-mono">Verifying G-Prana Card Ledger & Token Security...</p>
       </div>
     );
   }
@@ -301,7 +301,7 @@ export const AccessCardView: React.FC<AccessCardViewProps> = ({
                 <p className="text-xs text-slate-500 max-w-sm mx-auto">
                   {isLostOrRevoked(card?.status)
                     ? "Your previous card was " + (card?.status === "LOST" ? "reported LOST" : "REVOKED") + ". The old token is dead and can never be scanned again. Issue a fresh card with a new secure token."
-                    : "Issue your official NexusHealth Patient Access Card to enable effortless hospital visits without carrying a smartphone."}
+                    : "Issue your official G-Prana Patient Access Card to enable effortless hospital visits without carrying a smartphone."}
                 </p>
                 <p className="text-[10px] text-slate-500">Set a 4-digit Visa PIN for your card. It is required when presenting the card at hospitals.</p>
               </div>
@@ -325,7 +325,7 @@ export const AccessCardView: React.FC<AccessCardViewProps> = ({
                 disabled={pinInput.length !== 4}
                 className="px-6 py-3 bg-[#17C964] hover:bg-[#0EA653] disabled:bg-slate-200 disabled:cursor-not-allowed disabled:text-slate-400 text-white font-bold rounded-2xl transition text-xs shadow-lg shadow-[#17C964]/30"
               >
-                Issue NexusHealth Access Card Now
+                Issue G-Prana Access Card Now
               </button>
             </div>
           ) : (
@@ -452,7 +452,7 @@ export const AccessCardView: React.FC<AccessCardViewProps> = ({
               <span>Assisted Hospital Access (No Smartphone Needed)</span>
             </h3>
             <p className="text-xs text-slate-700 leading-relaxed">
-              When visiting any hospital or clinic, simply present your physical NexusHealth card. The doctor or reception staff scans your card, and a simple 1-click audio/visual confirmation screen will request your permission before displaying your records.
+              When visiting any hospital or clinic, simply present your physical G-Prana card. The doctor or reception staff scans your card, and a simple 1-click audio/visual confirmation screen will request your permission before displaying your records.
             </p>
             <div className="grid grid-cols-2 gap-2 text-[11px] text-slate-500 pt-1">
               <div className="flex items-center space-x-1.5">
@@ -683,7 +683,7 @@ export const AccessCardView: React.FC<AccessCardViewProps> = ({
             </div>
 
             <div style={{ position: "absolute", bottom: "1.6mm", left: 0, right: 0, textAlign: "center", fontSize: "6.5px", color: "#9CA3AF", fontFamily: "monospace" }}>
-              {card.cardIdentifier} • Scan QR at any NexusHealth-affiliated hospital
+              {card.cardIdentifier} • Scan QR at any G-Prana-affiliated hospital
             </div>
           </div>
         </div>

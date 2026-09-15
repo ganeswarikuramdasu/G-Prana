@@ -131,7 +131,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({
     { role: "PATIENT", email: "kamalakuramdasu1@gmail.com", password: "Kamala@2006", label: "Patient", symbol: "P" },
     { role: "DOCTOR", email: "divya@gmail.com", password: "Divya@2006", label: "Doctor", symbol: "D" },
     { role: "HOSPITAL_ADMIN", email: "demo@gmail.com", password: "Ganeswari@2006", label: "Hospital", symbol: "H" },
-    { role: "SUPER_ADMIN", email: "ganeswarikuramdasu@gmail.com", password: "Admin@Nexus2026!", label: "Super Admin", symbol: "S" },
+    { role: "SUPER_ADMIN", email: "ganeswarikuramdasu@gmail.com", password: "Admin@Gprana2026!", label: "Super Admin", symbol: "S" },
   ];
 
   const handleDemoLogin = async (role: UserRole, email: string, password: string) => {
@@ -349,7 +349,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({
             <Activity className="w-5 h-5" style={{ color: "#06130B" }} />
           </div>
           <div>
-            <p className="text-lg font-bold tracking-tight text-white leading-none">NexusHealth</p>
+            <p className="text-lg font-bold tracking-tight text-white leading-none">G-Prana</p>
             <p className="text-[10px] font-semibold tracking-[0.22em] uppercase mt-1" style={{ color: C.neonBright }}>
               National Digital Health Stack
             </p>
@@ -402,7 +402,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({
               <Activity className="w-5 h-5" style={{ color: "#06130B" }} />
             </div>
             <div>
-              <p className="font-bold text-slate-900 leading-none">NexusHealth</p>
+              <p className="font-bold text-slate-900 leading-none">G-Prana</p>
               <p className="text-[9px] font-semibold tracking-[0.2em] uppercase mt-1" style={{ color: C.neon }}>National Health Stack</p>
             </div>
           </div>
@@ -417,7 +417,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({
               <p className="mt-1 text-sm text-slate-500">
                 {isRegisterMode
                   ? "Establish your National Digital Health Identity."
-                  : "Sign in to access the NexusHealth portal."}
+                  : "Sign in to access the G-Prana portal."}
               </p>
             </div>
 
@@ -582,7 +582,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({
 
                 {selectedRole === "PATIENT" && (
                   <p className="text-center text-[13px] text-slate-500 pt-1">
-                    New to NexusHealth?{" "}
+                    New to G-Prana?{" "}
                     <button
                       type="button"
                       onClick={() => { setIsRegisterMode(true); setStatusMessage(null); }}
@@ -802,7 +802,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({
                 <span>Just now</span>
               </div>
               <div className="text-slate-900 font-bold border-b border-slate-200 pb-2">
-                Subject: {simulatedEmailNotice.subject || "Your NexusHealth OTP Code"}
+                Subject: {simulatedEmailNotice.subject || "Your G-Prana OTP Code"}
               </div>
               <p className="text-slate-700 leading-relaxed">
                 Dear Citizen,<br /><br />A 6-digit One-Time Password has been sent to <strong>{simulatedEmailNotice.to}</strong>.

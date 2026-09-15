@@ -12,14 +12,14 @@
 #
 # Requires: AWS CLI configured with admin credentials.
 #   BUCKET  (required) globally-unique bucket name,
-#           e.g. nexushealth-frontend-<yourname>
+#           e.g. gprana-frontend-<yourname>
 # ─────────────────────
 
 set -euo pipefail
 
 REGION="${AWS_REGION:-us-east-1}"
 BUCKET="${BUCKET:?Set BUCKET=<globally-unique-bucket-name>}"
-IAM_USER="nexushealth-cicd"
+IAM_USER="gprana-cicd"
 
 echo ">> Creating S3 bucket: $BUCKET (region $REGION)"
 if [ "$REGION" = "us-east-1" ]; then
@@ -76,7 +76,7 @@ read -r -d '' IAM_POLICY_DOC <<EOF
 }
 EOF
 
-IAM_POLICY_ARN=$(aws iam create-policy --policy-name "nexushealth-cicd-policy" \
+IAM_POLICY_ARN=$(aws iam create-policy --policy-name "gprana-cicd-policy" \
   --policy-document "$IAM_POLICY_DOC" \
   --query 'Policy.Arn' --output text)
 aws iam attach-user-policy --user-name "$IAM_USER" --policy-arn "$IAM_POLICY_ARN"
@@ -85,8 +85,8 @@ AKID=$(echo "$CREDS" | awk '{print $1}')
 SAK=$(echo "$CREDS" | awk '{print $2}')
 
 # ---- Create a placeholder object so the bucket is non-empty ----
-echo "index.html placeholder" > /tmp/nexushealth-index.html
-aws s3 cp /tmp/nexushealth-index.html "s3://$BUCKET/index.html"
+echo "index.html placeholder" > /tmp/gprana-index.html
+aws s3 cp /tmp/gprana-index.html "s3://$BUCKET/index.html"
 
 echo
 echo "=============================================================="

@@ -379,7 +379,7 @@ export const DoctorCardScannerSection: React.FC<DoctorCardScannerSectionProps> =
             <span>Patient Access Card Reader</span>
           </h1>
           <p className="text-xs text-slate-300 max-w-xl mt-1">
-            Scan physical or digital NexusHealth Patient Access Cards to verify identity, obtain assisted consent, and retrieve authorized EHR medical history.
+            Scan physical or digital G-Prana Patient Access Cards to verify identity, obtain assisted consent, and retrieve authorized EHR medical history.
           </p>
         </div>
 
@@ -474,7 +474,7 @@ export const DoctorCardScannerSection: React.FC<DoctorCardScannerSectionProps> =
                 {loading && (
                   <div className="p-3 text-center text-xs font-mono text-[#17C964] flex items-center justify-center space-x-2">
                     <RefreshCw className="w-4 h-4 animate-spin" />
-                    <span>Verifying Card Token with NexusHealth Security Gateway...</span>
+                    <span>Verifying Card Token with G-Prana Security Gateway...</span>
                   </div>
                 )}
               </div>

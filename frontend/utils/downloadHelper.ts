@@ -54,7 +54,7 @@ export const downloadPrescriptionPDF = (
     <body>
       <div class="header">
         <div>
-          <h1 class="hospital-title">${hospitalName || "NexusHealth Network Hospital"}</h1>
+          <h1 class="hospital-title">${hospitalName || "G-Prana Network Hospital"}</h1>
           <div class="hospital-sub">Integrated EHR & Telemedicine Systems • Official Digital Prescription</div>
         </div>
         <div class="rx-badge">Rx</div>
@@ -322,7 +322,7 @@ export const downloadMedicalRecordPDF = (record: any, patientName: string, healt
     <body>
       <div class="header">
         <div>
-          <h1 class="record-title">${record?.hospitalName || "NexusHealth Unified Hospital"}</h1>
+          <h1 class="record-title">${record?.hospitalName || "G-Prana Unified Hospital"}</h1>
           <div class="record-sub">Unified Electronic Health Record (EHR) Summary</div>
         </div>
         <div style="text-align: right;">

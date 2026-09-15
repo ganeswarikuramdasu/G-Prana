@@ -26,7 +26,7 @@ export function LanguageProvider({ children, initial }: { children: ReactNode; i
     if (initial && LANGUAGES[initial]) {
       return initial;
     }
-    const stored = typeof window !== "undefined" ? localStorage.getItem("nexushealth.lang") : null;
+    const stored = typeof window !== "undefined" ? localStorage.getItem("gprana.lang") : null;
     if (stored && LANGUAGES[stored as LocaleCode]) {
       return stored as LocaleCode;
     }
@@ -36,7 +36,7 @@ export function LanguageProvider({ children, initial }: { children: ReactNode; i
   useEffect(() => {
     if (typeof window !== "undefined") {
       try {
-        localStorage.setItem("nexushealth.lang", code);
+        localStorage.setItem("gprana.lang", code);
       } catch {
         // localStorage unavailable (private mode) -> session-only switch still works
       }

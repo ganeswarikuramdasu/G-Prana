@@ -438,7 +438,7 @@ export const CardScannerModal: React.FC<CardScannerModalProps> = ({
                 {loading && (
                   <div className="p-3 text-center text-xs font-mono text-[#17C964] flex items-center justify-center space-x-2">
                     <RefreshCw className="w-4 h-4 animate-spin" />
-                    <span>Verifying Card Token with NexusHealth Security Gateway...</span>
+                    <span>Verifying Card Token with G-Prana Security Gateway...</span>
                   </div>
                 )}
               </div>

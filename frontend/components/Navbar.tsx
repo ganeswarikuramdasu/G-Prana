@@ -60,7 +60,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div
             onClick={onGoToHome}
             className="flex items-center space-x-3 cursor-pointer group"
-            title="NexusHealth AI Gateway"
+            title="G-Prana AI Gateway"
           >
             <div className="w-10 h-10 bg-[#17C964] rounded-2xl flex items-center justify-center shadow-lg shadow-[#17C964]/20 group-hover:scale-105 transition-transform border border-[#17C964]/30">
               <Activity className="w-5 h-5 text-white" />
@@ -68,7 +68,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <div>
               <div className="flex items-center space-x-1.5">
                 <span className="text-base font-black tracking-tight text-slate-900 group-hover:text-[#17C964] transition-colors">
-                  NexusHealth
+                  G-Prana
                 </span>
                 <span className="px-1.5 py-0.2 bg-[#17C964]/10 text-[#17C964] text-[9px] font-mono font-bold rounded-md border border-[#17C964]/30">
                   AI

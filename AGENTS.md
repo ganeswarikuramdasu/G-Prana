@@ -1,7 +1,7 @@
 # Session Summary
 
 ## Objective
-- Fix all four doctor-module bugs in the NexusHealth Phase 6 Java migration (Spring Boot 3.3.4 backend + React 19/Vite frontend):
+- Fix all four doctor-module bugs in the G-Prana Phase 6 Java migration (Spring Boot 3.3.4 backend + React 19/Vite frontend):
   1. Dashboard patient record lookup by ID — user enters a valid health ID and gets "Patient Not Found" + "An unexpected server error occurred. Please try again."
   2. Patient Access Center — accessing patient records via health ID or access card always shows "An unexpected server error occurred. Please try again." (should show records if access granted, else an "access permission is not given" style message).
   3. Patient access card method must accept ONLY access-card-related identifiers (card id / cardIdentifier / secureToken) — never raw patient IDs or health IDs.
@@ -10,7 +10,7 @@
 - After all fixes: build/verify then commit and push to the user's GitHub repo (used previously: user's own repo).
 
 ## Important Details
-- Repo root `C:\Users\ganes\Downloads\nexushealth-java-migration-phase6` (git repo). Monorepo: `backend-java/` (Java 17, Spring Boot 3.3.4, MySQL, package `com.nexushealth` — NOT `com.nxushealth`) + `frontend/` (React 19, Vite, TypeScript, Tailwind). Backend on :8080, dev server on :5173.
+- Repo root `C:\Users\ganes\Downloads\gprana-java-migration-phase6` (git repo). Monorepo: `backend-java/` (Java 17, Spring Boot 3.3.4, MySQL, package `com.gprana` — NOT `com.nxushealth`) + `frontend/` (React 19, Vite, TypeScript, Tailwind). Backend on :8080, dev server on :5173.
 - "An unexpected server error occurred. Please try again." is `GlobalExceptionHandler.handleGeneric` (HTTP 500) → the failing paths throw an UNHANDLED runtime exception, NOT an `ApiException`. Use `ApiException.badRequest/notFound/unauthorized/forbidden` for business-rule failures; `handleApiException` turns them into `{success:false, message}` with proper status.
 - Frontend `safeFetchJson`/`parseResponseSafe` (frontend/utils/api.ts) never throw — they return the JSON error body or a fallback. So "unexpected server error" text comes from the backend 500 body (GlobalExceptionHandler), which the frontend then displays.
 - Dashboard lookup flow: `DoctorView.tsx` `handlePatientLookup` → `POST /api/doctor/access-records` with `{doctorId, doctorName, patientHealthId}` → `DoctorService.accessPatientRecords()`. Frontend checks `data.success && data.patient`, else shows `data?.message` or the "Patient Not Found..." fallback.
@@ -25,6 +25,8 @@
 - Relevant DB tables: access_cards, consents, appointments, medical_records, access_sessions (persisted? verify), record_access_logs, audit_logs. `ddl-auto: update` creates tables.
 
 ## Work State
+### Completed
+- 2026-09-15 REBRAND: NexusHealth → **G-Prana** applied repo-wide. Java package `com.nexushealth` → `com.gprana` (dir moved, class `NexusHealthApplication` → `GpranaApplication`); artifact/jar `nexushealth-backend` → `gprana-backend`; DB default `nexushealth` → `gprana` (local `gprana` DB created + data copied from `nexushealth`); config prefix `nexushealth:` → `gprana:`; localStorage keys `nexushealth_*` → `gprana_*`; fallback emails `@nexushealth.org` → `@gprana.org`; brand strings in all .tsx → "G-Prana" (incl. "G-Prana AI"); super-admin default password `Admin@Nexus2026!` → `Admin@Gprana2026!`; `nexusHealthId` query param → `gpranaHealthId` (Hospital Controller/Service). New logo `public/gprana-icon.svg` (globe-G = Global + prana leaf = life; referenced by index.html/AppShell/LandingPage). metadata.json name → "G-Prana Global Health Identity & Emergency Access". Verified: `mvn clean package` + `npm run lint` + `npm run build` clean; boot smoke test of `gprana-backend.jar` against local `gprana` DB passed `/api/health` UP. Remaining `@nexus.in` demo-account emails kept (real DB records / login credentials). GitHub repo still needs manual rename NexusHealth → G-Prana (its web Settings → rename; local remote already set to `.../G-Prana.git`) + redeploy URL updates (Vercel/Render) if used.
 ### Completed
 - Explored frontend + backend structure; mapped the 4 bug flows to exact endpoints/services/controllers:
   - Dashboard: `POST /api/doctor/access-records` → `DoctorService.accessPatientRecords()` (DoctorController + DoctorView.tsx)
@@ -44,7 +46,7 @@
   4. Emergency/Break-Glass → identify + `EMERGENCY_BREAK_GLASS` session both work (HTTP 200 granted), no generic 500.
 - Backend fixes applied: `ApiException.badRequest/notFound/forbidden` for all business-rule failures (never proceed on unresolved/null data); `@Transactional(REQUIRES_NEW)` on `RecordAccessLogService.add` and `AuditLogService.log` so best-effort logs can no longer poison an outer tx; `null` sessionId passed to the access-session success log; card-only token resolution for `PATIENT_ACCESS_CARD`.
 - Frontend polish done: the misleading "16-character Global Unique Health ID" hint replaced with accurate consent/appointment/break-glass guidance (DoctorView.tsx:501); backend `message` surfaces in all error boxes.
-- Verified end-to-end against a fresh local `nexushealth` DB — 18 replay tests mirroring exact frontend payloads (health-id, card id/secureToken, card-with-health-id→403, appointment, break-glass, biometric, unknown patient→404, missing doctorId→400, session action/end, medications fetch) all pass with zero backend stack traces.
+- Verified end-to-end against a fresh local `gprana` DB — 18 replay tests mirroring exact frontend payloads (health-id, card id/secureToken, card-with-health-id→403, appointment, break-glass, biometric, unknown patient→404, missing doctorId→400, session action/end, medications fetch) all pass with zero backend stack traces.
 - Builds verified: `mvn -DskipTests package` (backend), `npm run lint` (tsc --noEmit), `npm run build` (vite) — all clean.
 - Working tree clean except this file; repo `main` in sync with `origin/main` at `48ffd02`.
 
@@ -52,38 +54,38 @@
 - (none)
 
 ## Next Move
-- None — all four doctor-module bugs are fixed, verified, committed (`48ffd02`) and pushed to `https://github.com/ganeswarikuramdasu/NexusHealth.git`.
-- Remaining note for the user: the persistent 500s were environmental (stale DB schema / old backend build). To apply the fix: `git pull`, stop the old app, drop/recreate the local `nexushealth` DB (or let `ddl-auto: update` rebuild it), and restart the backend from the latest build.
+- None — all four doctor-module bugs are fixed, verified, committed (`48ffd02`) and pushed to `https://github.com/ganeswarikuramdasu/G-Prana.git`.
+- Remaining note for the user: the persistent 500s were environmental (stale DB schema / old backend build). To apply the fix: `git pull`, stop the old app, drop/recreate the local `gprana` DB (or let `ddl-auto: update` rebuild it), and restart the backend from the latest build.
 
 ## Relevant Files
-- `backend-java/src/main/java/com/nexushealth/service/DoctorService.java` — core of tasks 1–3 (`accessPatientRecords`, `createAccessSession`, card/consent logic).
-- `backend-java/src/main/java/com/nexushealth/service/EmergencyService.java` — task 4 (`identify`, start-session/break-glass, records).
-- `backend-java/src/main/java/com/nexushealth/service/RecordAccessLogService.java` — swallowed-exception log save (500 candidate); possibly needs REQUIRES_NEW.
-- `backend-java/src/main/java/com/nexushealth/service/AuditLogService.java` (line 37) — best-effort log (same tx-poison risk if outer @Transactional).
-- `backend-java/src/main/java/com/nexushealth/service/PatientResolver.java` — patient resolution by id / health id / email (null returns must be handled).
-- `backend-java/src/main/java/com/nexushealth/repository/AccessCardRepository.java` — `findAllByAnyIdentifier` must be restricted to card identifiers for task 3.
-- `backend-java/src/main/java/com/nexushealth/entity/RecordAccessLog.java` / `AuditLog.java` / `AccessSession.java` — fragile mirrored-FK entity pattern.
-- `backend-java/src/main/java/com/nexushealth/common/GlobalExceptionHandler.java` — source of the generic 500 message; `ApiException` handler is correct path.
+- `backend-java/src/main/java/com/gprana/service/DoctorService.java` — core of tasks 1–3 (`accessPatientRecords`, `createAccessSession`, card/consent logic).
+- `backend-java/src/main/java/com/gprana/service/EmergencyService.java` — task 4 (`identify`, start-session/break-glass, records).
+- `backend-java/src/main/java/com/gprana/service/RecordAccessLogService.java` — swallowed-exception log save (500 candidate); possibly needs REQUIRES_NEW.
+- `backend-java/src/main/java/com/gprana/service/AuditLogService.java` (line 37) — best-effort log (same tx-poison risk if outer @Transactional).
+- `backend-java/src/main/java/com/gprana/service/PatientResolver.java` — patient resolution by id / health id / email (null returns must be handled).
+- `backend-java/src/main/java/com/gprana/repository/AccessCardRepository.java` — `findAllByAnyIdentifier` must be restricted to card identifiers for task 3.
+- `backend-java/src/main/java/com/gprana/entity/RecordAccessLog.java` / `AuditLog.java` / `AccessSession.java` — fragile mirrored-FK entity pattern.
+- `backend-java/src/main/java/com/gprana/common/GlobalExceptionHandler.java` — source of the generic 500 message; `ApiException` handler is correct path.
 - `frontend/components/DoctorView.tsx` — dashboard lookup UI; line 501 has the false "16-character" hint; `handlePatientLookup` messages.
 - `frontend/components/DoctorPatientAccessCenter.tsx` — access-center UI (health ID / access card / appointment flows).
 - `frontend/components/EmergencyAccessDoctorView.tsx` — emergency/break-glass UI (identify works, authorize fails).
 - `frontend/utils/api.ts` — safe fetch wrappers (never throw; return error body/fallback).
-- `backend-java/src/main/java/com/nexushealth/repository/{AppointmentRepository,MedicalRecordRepository,ConsentRepository}.java` — NULL-tolerant queries used by the flows.
+- `backend-java/src/main/java/com/gprana/repository/{AppointmentRepository,MedicalRecordRepository,ConsentRepository}.java` — NULL-tolerant queries used by the flows.
 ## Current Live State (2026-09-11)
 - All four doctor-module bugs AND all remaining latent 500 paths are fixed and pushed (commits 48ffd02, 305ed35). Latest: 305ed35 "harden doctor access flows against remaining 500s".
 - Fixes in 305ed35: new CardAccessLogService (best-effort REQUIRES_NEW card-log tx - card-scan logging can never roll back a grant); card credentials rejected with 403 BEFORE token can be misread as a patient ID (404); consent/appointment matching uses the resolved Doctor entity id so userId/email login forms grant correctly; EmergencyService.identifyByCard null-guard; AppointmentService reschedule date parse -> 400 + weeklySchedule instanceof guard; GlobalExceptionHandler parses DateTimeParseException/IllegalArgumentException -> 400; frontend reads data.message (not data.error) in CompletePatientClinicalRecord/PatientView and ends emergency sessions via /api/doctor/access-sessions/{id}/end.
-- Verified: 20-test API suite on a live MySQL nexushealth DB - granted flows returns 200, denied -> 403 clean, unknown patient -> 404, bad/missing input -> 400, card flow 403 for non-card tokens, no backend stack traces. Backend mvn -DskipTests package exit 0; frontend 
+- Verified: 20-test API suite on a live MySQL gprana DB - granted flows returns 200, denied -> 403 clean, unknown patient -> 404, bad/missing input -> 400, card flow 403 for non-card tokens, no backend stack traces. Backend mvn -DskipTests package exit 0; frontend 
 pm run lint + 
 pm run build clean.
 - LOCAL DEMO ACCOUNTS (seeded MySQL, BCrypt cost-12 hashes; login sends ole field):
   - Dr. Anand Rao: doctorA@nexus.in / Doctor@123 (DOCTOR). Patient Ananya Sharma: ananya@nexus.in / Patient@123 (PATIENT). Dr. No Perm (no consent): doctorB@nexus.in / Doctor@123.
   - demo data: health ID NH-IND-2026-88392014; access card NX-CARD-88392014-01 / NXAC-TOKEN-1 ACTIVE; consent cons_pat u_pat->docA GRANTED to 2026-10-11; appointment apt_pat_test ACCEPTED with extra patient JSON.
 - IMPORTANT: demo users/card/consent/appointment live ONLY in the local DB (schema migration V1 is tables-only, no seed rows). Dropping the DB wipes the demo accounts; re-seed manually. Passwords used to be 4-char stubs (broken login) - fixed to real BCrypt.
-- Both dev servers currently running: backend jar target/nexushealth-backend.jar on 8080; frontend vite on 127.0.0.1:5173 (IPv4 only; vite's ::1-only binding is unreachable on this box - launch with `npx vite --host 127.0.0.1 --port 5173 --strictPort`).
+- Both dev servers currently running: backend jar target/gprana-backend.jar on 8080; frontend vite on 127.0.0.1:5173 (IPv4 only; vite's ::1-only binding is unreachable on this box - launch with `npx vite --host 127.0.0.1 --port 5173 --strictPort`).
 - 2026-09-12 (commit 13d66cc) - all-method access sweep + 3 more 500/409 fixes:
   - Best-effort loggers (RecordAccessLogService / AuditLogService / CardAccessLogService) were NOT actually best-effort: `@Transactional(REQUIRES_NEW)` + swallowed `save()` deferred the INSERT to inner-tx commit, and a failed flush marked that tx rollback-only -> commit threw UnexpectedRollbackException -> generic 500. Rewritten to a REQUIRES_NEW TransactionTemplate with `saveAndFlush` inside the callback; failures are rolled back cleanly in the inner tx and swallowed. CardService assisted-consent log now routed through CardAccessLogService instead of direct save.
   - `accessPatientRecords` (dashboard) now 400s on missing doctorId (was NPE at appointment match); null-safe doctor match added in both flows (was the `<...>equals` NPE at DoctorService ~600/817).
   - Symptom this fixes: requests with unknown/empty doctor id returned 409 (FK leak on record_access_logs.doctor_id) or 500 instead of clean 400/403/404.
   - Seeded 5 demo medical_records for u_pat (rec_demo_*) so every granted access shows records (records.Count=5).
   - Verified end-to-end via 127.0.0.1:5173: PAC health-ID/name/card-id/card-token/biometric/appointment -> 200 GRANTED rec=5; dashboard -> 200 GRANTED; EMG identify ID/card/name -> 200 FOUND, FINGERPRINT -> clean fail, authorize break-glass -> 200 GRANTED rec=5; docB -> 403, card-as-health-ID -> 403, unknown patient -> 404, blank/missing doctorId -> 400, unknown doctorId (doc_nope) -> 403. Zero backend ERROR/SEVERE lines after restart.
-  - LOCAL DB creds: root / `Ganeswari@2006`, db `nexushealth` (127.0.0.1:3306). Launch backend with env baked into `cmd /c "set MYSQL_HOST=127.0.0.1 && set MYSQL_PASSWORD=Ganeswari@2006 && ... java -jar ..."` (PowerShell `$env:` + Start-Process did NOT propagate on the 2026-09-12 relaunch, silently connecting to Aiven instead).
+  - LOCAL DB creds: root / `Ganeswari@2006`, db `gprana` (127.0.0.1:3306). Launch backend with env baked into `cmd /c "set MYSQL_HOST=127.0.0.1 && set MYSQL_PASSWORD=Ganeswari@2006 && ... java -jar ..."` (PowerShell `$env:` + Start-Process did NOT propagate on the 2026-09-12 relaunch, silently connecting to Aiven instead).

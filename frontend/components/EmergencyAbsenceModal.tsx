@@ -287,7 +287,7 @@ export const EmergencyAbsenceModal: React.FC<EmergencyAbsenceModalProps> = ({
                       onChange={() => setActionTaken("CANCEL")}
                       className="text-[#F2603C] focus:ring-[#F2603C]"
                     />
-                    <span>Cancel affected appointments & notify patients via Nexus Health Feed</span>
+                    <span>Cancel affected appointments & notify patients via G-Prana Feed</span>
                   </label>
                   <label className="flex items-center space-x-2 text-slate-700 cursor-pointer">
                     <input

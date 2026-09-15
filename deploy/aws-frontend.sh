@@ -13,7 +13,7 @@
 #   - You have already run:  npm run build  (creates dist/)
 #
 # Usage:
-#   BUCKET=my-nexushealth-frontend CLOUDFRONT_ID=E1234567890ABC \
+#   BUCKET=my-gprana-frontend CLOUDFRONT_ID=E1234567890ABC \
 #     ./deploy/aws-frontend.sh
 # ─────────────────────
 

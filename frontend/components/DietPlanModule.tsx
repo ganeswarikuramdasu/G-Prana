@@ -79,7 +79,7 @@ export const DietPlanModule: React.FC<DietPlanModuleProps> = ({ profile, patient
           patientId: patientUserId,
           patientHealthId: profile.globalHealthId,
           doctorName: "Gemini 3.6 Flash Nutrition AI",
-          hospitalName: "Nexus AI Clinical Engine",
+          hospitalName: "G-Prana Clinical Engine",
           title: generated.title || "Customized Clinical Meal Strategy",
           category: generated.category || "General Wellness",
           createdDate: "Today",

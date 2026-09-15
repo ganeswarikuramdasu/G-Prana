@@ -1,7 +1,7 @@
 -- Flyway V2: remove the dead multilingual 'preferred_language' column(s)
 -- that were left over after the i18n/voice revert (NOT NULL, no default) --
 -- they broke patient registration (INSERT omits them -> 500).
-SET @proc_schema = 'nexushealth';
+SET @proc_schema = 'gprana';
 SET @col_name   = 'preferred_language';
 
 SET @sql := NULL;

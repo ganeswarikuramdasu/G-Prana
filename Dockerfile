@@ -18,9 +18,9 @@ WORKDIR /app
 RUN useradd --create-home --shell /usr/sbin/nologin appuser
 USER appuser
 
-COPY --from=build /app/target/nexushealth-backend.jar ./nexushealth-backend.jar
+COPY --from=build /app/target/gprana-backend.jar ./gprana-backend.jar
 
 ENV SERVER_PORT=8080
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-XX:MaxRAMPercentage=75", "-jar", "/app/nexushealth-backend.jar"]
+ENTRYPOINT ["java", "-XX:MaxRAMPercentage=75", "-jar", "/app/gprana-backend.jar"]

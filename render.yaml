@@ -1,6 +1,6 @@
 # ======================================================
 # render.yaml
-# Render Blueprint for the NexusHealth Spring Boot backend.
+# Render Blueprint for the G-Prana Spring Boot backend.
 #
 # Deploy: Render -> New -> Blueprint -> this repo, or
 # manually: Render -> New -> Web Service -> this repo,
@@ -12,9 +12,9 @@
 
 services:
   - type: web
-    name: nexushealth-backend
+    name: gprana-backend
     runtime: docker
-    repo: https://github.com/ganeswarikuramdasu/NexusHealth.git
+    repo: https://github.com/ganeswarikuramdasu/G-Prana.git
     plan: free
     region: singapore
     healthCheckPath: /api/health
@@ -48,11 +48,11 @@ services:
 
       # --- CORS: Vercel frontend + localhost dev ---
       - key: CORS_ORIGINS
-        value: "https://nexus-health-eight.vercel.app,http://localhost:5173,http://127.0.0.1:5173,http://localhost:3000,http://127.0.0.1:3000"
+        value: "https://g-prana-eight.vercel.app,http://localhost:5173,http://127.0.0.1:5173,http://localhost:3000,http://127.0.0.1:3000"
 
       # --- Public URL ---
       - key: APP_URL
-        value: https://nexushealth-backend-2smg.onrender.com
+        value: https://gprana-backend-2smg.onrender.com
 
       # --- AI (optional) ---
       - key: GEMINI_API_KEY
@@ -65,4 +65,4 @@ services:
       - key: BREVO_API_KEY
         sync: false
       - key: EMAIL_FROM
-        value: "NexusHealth Identity <ganeswarikuramdasu@gmail.com>"
+        value: "G-Prana Identity <ganeswarikuramdasu@gmail.com>"

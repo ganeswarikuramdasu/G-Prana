@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🏥 NexusHealth
+# 🏥 G-Prana
 
 ### A Blockchain-Inspired Digital Health Identity & Smart Healthcare Platform
 
@@ -57,11 +57,11 @@ A full-stack final-year project that gives every citizen a unique **Global Healt
 ## 📁 Project Structure
 
 ```
-nexushealth/
+gprana/
 ├── frontend/               # React + Vite + Tailwind UI
 │   └── components/         # All feature views & modals
 ├── backend-java/           # Spring Boot backend (single backend)
-│   └── src/main/java/com/nexushealth/
+│   └── src/main/java/com/gprana/
 │       ├── config/         # Cors, DataSeeder, security constants
 │       ├── controller/     # REST endpoints
 │       ├── service/        # Business logic
@@ -89,7 +89,7 @@ nexushealth/
 Create a database (the backend creates tables automatically on first boot):
 
 ```sql
-CREATE DATABASE IF NOT EXISTS nexushealth;
+CREATE DATABASE IF NOT EXISTS gprana;
 ```
 
 ### 2. Backend (Spring Boot)
@@ -156,7 +156,7 @@ HTTPS is automatic everywhere (Vercel + Render), so there's **no mixed-content p
 3. Create the database (Hibernate auto-creates tables on first boot):
    ```bash
    mysql -h <AIVEN_HOST>.aivencloud.com -P <port> -u avnadmin -p
-   CREATE DATABASE IF NOT EXISTS nexushealth;
+   CREATE DATABASE IF NOT EXISTS gprana;
    ```
 
 > ⚠️ Render can't reach `localhost` — the DB must be the **Aiven public host**, and Aiven must allow connections from Render (public access on). if your Aiven plan requires an **allowlist** for IPs, Render free egress IPs are dynamic — enable public access without a strict allowlist, or add Render's IPs.
@@ -175,13 +175,13 @@ HTTPS is automatic everywhere (Vercel + Render), so there's **no mixed-content p
    MYSQL_PASSWORD       <your-aiven-password>
    SUPER_ADMIN_EMAIL    ganeswarikuramdasu@gmail.com
    SUPER_ADMIN_PASSWORD <your-super-admin-password>
-   CORS_ORIGINS         https://nexus-health-eight.vercel.app,http://localhost:5173,http://localhost:3000
+   CORS_ORIGINS         https://g-prana-eight.vercel.app,http://localhost:5173,http://localhost:3000
    APP_URL              https://<your-service>.onrender.com
    MYSQL_SSL_MODE       REQUIRED               # Aiven requires TLS
    MYSQL_DATABASE       defaultdb              # or your created DB name
    GEMINI_API_KEY       <optional>
    BREVO_API_KEY        <your-brevo-key>       # OTP emails over HTTPS (free: 300/day)
-   EMAIL_FROM           "NexusHealth Identity <ganeswarikuramdasu@gmail.com>"   # must be a sender VERIFIED in Brevo
+   EMAIL_FROM           "G-Prana Identity <ganeswarikuramdasu@gmail.com>"   # must be a sender VERIFIED in Brevo
    ```
 4. Render gives you a public URL: `https://<your-service>.onrender.com`.
    - Health check: `https://<your-service>.onrender.com/api/health`.
@@ -199,7 +199,7 @@ The app calls relative `/api/...` which **Vercel rewrites** to your Render backe
    ```json
    "destination": "https://<your-service>.onrender.com/api/$1"
    ```
-4. Redeploy and open your `https://nexus-health-eight.vercel.app`.
+4. Redeploy and open your `https://g-prana-eight.vercel.app`.
 
 > **Alternative — build-time env:** instead of the proxy, bake the Render URL into the build with `VITE_API_BASE_URL=https://<your-service>.onrender.com npm run build`. See `frontend/utils/apiBase.ts`.
 
@@ -211,8 +211,8 @@ A `render.yaml` is included so you can deploy the backend with **Render → New 
 
 ## 🗄️ Where to Check Your Database
 
-**Locally** — connect any MySQL client to `localhost:3306`, database `nexushealth`:
-- CLI: `mysql -u root -p nexushealth`
+**Locally** — connect any MySQL client to `localhost:3306`, database `gprana`:
+- CLI: `mysql -u root -p gprana`
 - GUI: **MySQL Workbench**, **DataGrip**, or **DBeaver** (`localhost:3306`, user `root`)
 
 Key tables the app creates:

@@ -97,13 +97,13 @@ export const DoctorView: React.FC<DoctorViewProps> = ({
     | "ACCESS_HISTORY"
     | "COMPLAINTS"
   >(() => {
-    const saved = localStorage.getItem("nexushealth_tab_DOCTOR");
+    const saved = localStorage.getItem("gprana_tab_DOCTOR");
     return saved && DOCTOR_TABS.includes(saved) ? (saved as any) : "DASHBOARD";
   });
 
   useEffect(() => {
     try {
-      localStorage.setItem("nexushealth_tab_DOCTOR", activeTab);
+      localStorage.setItem("gprana_tab_DOCTOR", activeTab);
     } catch {
       // storage unavailable
     }
@@ -310,7 +310,7 @@ export const DoctorView: React.FC<DoctorViewProps> = ({
   const shellUser = appUser || {
     id: "doc_1",
     name: doctorName || "Physician",
-    email: "doctor@nexushealth.org",
+    email: "doctor@gprana.org",
     role: "DOCTOR" as UserRole,
   };
 
@@ -981,7 +981,7 @@ export const DoctorView: React.FC<DoctorViewProps> = ({
               appUser={{
                 id: appUser?.id || doctor.id,
                 name: appUser?.name || doctorName,
-                email: appUser?.email || "doctor@nexushealth.org",
+                email: appUser?.email || "doctor@gprana.org",
                 role: appUser?.role || "DOCTOR",
               }}
               module="DOCTOR"
