@@ -33,7 +33,7 @@ export const GlobalHealthCardModal: React.FC<GlobalHealthCardModalProps> = ({
           </div>
           <div>
             <h3 className="text-base font-bold text-white tracking-wide">Digital Health ID Card</h3>
-            <p className="text-xs text-[#17C964] font-mono">Verified National Health Record ID</p>
+            <p className="text-xs text-[#17C964] font-mono">Verified Global Health Record ID</p>
           </div>
         </div>
 

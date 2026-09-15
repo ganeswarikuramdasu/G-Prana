@@ -8,43 +8,27 @@
       <stop offset="0" stop-color="#8CFFBC"/>
       <stop offset="1" stop-color="#17C964"/>
     </linearGradient>
-    <clipPath id="gpclip">
-      <circle cx="32" cy="32" r="14"/>
-    </clipPath>
     <mask id="gpmask">
       <rect width="64" height="64" fill="#fff"/>
-      <rect x="40" y="14" width="26" height="30" fill="#000" rx="3"/>
+      <rect x="30" y="6" width="40" height="52" fill="#000"/>
     </mask>
   </defs>
 
   <rect x="4" y="4" width="56" height="56" rx="14" fill="#0B1220"/>
   <rect x="4" y="4" width="56" height="56" rx="14" fill="none" stroke="url(#gpg)" stroke-width="2"/>
 
-  <!-- Globe ring with right-side opening (the letter G) -->
-  <g mask="url(#gpmask)">
-    <path d="M32 14.5 A17.5 17.5 0 1 0 32 49.5 A17.5 17.5 0 1 0 32 14.5
-             M32 20.5 A11.5 11.5 0 1 0 32 43.5 A11.5 11.5 0 1 0 32 20.5"
-          fill="url(#gpgH)" fill-rule="evenodd"/>
+  <!-- letter G - globe-styled ring with right opening -->
+  <g mask="url(#gpmask)" fill="none" stroke="url(#gpgH)" stroke-width="6.5" stroke-linecap="round">
+    <path d="M25 19 A13 13 0 1 0 25 45 A13 13 0 1 0 25 19"/>
+  </g>
+  <path d="M14 32 L30.5 32" stroke="url(#gpgH)" stroke-width="5.5" stroke-linecap="round"/>
+
+  <!-- letter P - stem + bowl -->
+  <g fill="none" stroke="url(#gpgH)" stroke-width="6.5" stroke-linecap="round">
+    <path d="M46 19 L46 46"/>
+    <path d="M46 19 A7.5 7.5 0 0 1 53.5 26.5 A7.5 7.5 0 0 1 46 34"/>
   </g>
 
-  <!-- G crossbar (equator line): proves it is a G, not an O -->
-  <path d="M20 30 L49 30" stroke="url(#gpgH)" stroke-width="6.2" stroke-linecap="round"/>
-
-  <!-- Global meridians inside the ring -->
-  <g clip-path="url(#gpclip)" fill="none" stroke="#B9FFD6" stroke-width="1.1" opacity="0.85">
-    <ellipse cx="32" cy="32" rx="3" ry="14"/>
-    <ellipse cx="24" cy="32" rx="2" ry="13"/>
-    <ellipse cx="40" cy="32" rx="2" ry="13"/>
-    <ellipse cx="32" cy="32" rx="14" ry="3.5"/>
-    <ellipse cx="32" cy="21" rx="12" ry="2.6"/>
-    <ellipse cx="32" cy="43" rx="12" ry="2.6"/>
-    <ellipse cx="46" cy="32" rx="2" ry="12"/>
-  </g>
-
-  <!-- Prana leaf sprout (life) rising from the globe -->
-  <ellipse cx="36" cy="10" rx="3.4" ry="7" transform="rotate(38 36 10)" fill="url(#gpgH)"/>
-  <ellipse cx="27.5" cy="11.5" rx="2.9" ry="6" transform="rotate(-40 27.5 11.5)" fill="#3CE584" opacity="0.9"/>
-
-  <!-- Energy dot (brand continuity) -->
-  <circle cx="46.5" cy="47" r="2.4" fill="#3CE584" opacity="0.9"/>
+  <!-- prana life-spark (brand continuity) -->
+  <circle cx="50.5" cy="48" r="2.3" fill="#3CE584" opacity="0.9"/>
 </svg>

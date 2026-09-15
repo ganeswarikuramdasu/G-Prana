@@ -202,7 +202,7 @@ export const MobileCameraScannerPage: React.FC<MobileCameraScannerPageProps> = (
 
       {/* Footer Security Badge */}
       <div className="text-center text-[10px] text-slate-500 font-mono">
-        🔒 Encrypted National Health Stack Mobile Camera Tunnel
+        🔒 Encrypted Global Health Identity &amp; Emergency Access Tunnel
       </div>
     </div>
   );

@@ -96,7 +96,7 @@ public class EmailService {
             <div style="font-family: Arial, sans-serif; background-color: #0f172a; color: #f8fafc; padding: 30px; border-radius: 12px; max-width: 550px; margin: 0 auto; border: 1px solid #1e293b;">
               <div style="text-align: center; margin-bottom: 20px;">
                 <h2 style="color: #06b6d4; margin: 0; font-size: 24px; letter-spacing: 1px;">G-Prana Verification</h2>
-                <p style="color: #94a3b8; font-size: 13px; margin-top: 4px;">National Digital Health Mission Portal</p>
+                <p style="color: #94a3b8; font-size: 13px; margin-top: 4px;">Global Health Identity &amp; Emergency Access Portal</p>
               </div>
               <div style="background-color: #1e293b; padding: 20px; border-radius: 8px; border: 1px solid #334155;">
                 <p style="margin-top: 0; font-size: 14px;">Dear Citizen,</p>

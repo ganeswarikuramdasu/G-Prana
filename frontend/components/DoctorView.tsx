@@ -612,7 +612,7 @@ export const DoctorView: React.FC<DoctorViewProps> = ({
                       <span>REGISTRY VERIFIED ACCESS</span>
                     </div>
                     <p className="text-slate-500 text-[10px] leading-relaxed">
-                      Patient profile securely verified from National Digital Health Registry.
+                      Patient profile securely verified from Global Health Identity Registry.
                     </p>
                   </div>
                 </div>

@@ -351,7 +351,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({
           <div>
             <p className="text-lg font-bold tracking-tight text-white leading-none">G-Prana</p>
             <p className="text-[10px] font-semibold tracking-[0.22em] uppercase mt-1" style={{ color: C.neonBright }}>
-              National Digital Health Stack
+              Global Health Identity &amp; Emergency Access
             </p>
           </div>
         </div>
@@ -403,7 +403,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({
             </div>
             <div>
               <p className="font-bold text-slate-900 leading-none">G-Prana</p>
-              <p className="text-[9px] font-semibold tracking-[0.2em] uppercase mt-1" style={{ color: C.neon }}>National Health Stack</p>
+              <p className="text-[9px] font-semibold tracking-[0.2em] uppercase mt-1" style={{ color: C.neon }}>Global Health Identity &amp; Emergency Access</p>
             </div>
           </div>
 
@@ -416,7 +416,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({
               </h2>
               <p className="mt-1 text-sm text-slate-500">
                 {isRegisterMode
-                  ? "Establish your National Digital Health Identity."
+                  ? "Establish your Global Health Identity."
                   : "Sign in to access the G-Prana portal."}
               </p>
             </div>

@@ -916,7 +916,7 @@ export const PatientView: React.FC<PatientViewProps> = ({
                 <div className="text-xl font-black text-slate-900 font-mono truncate">{profile.globalHealthId || "VERIFIED"}</div>
                 <div className="text-[10px] text-[#17C964] font-mono font-bold flex items-center space-x-1">
                   <CheckCircle2 className="w-3 h-3" />
-                  <span>National Health ID Linked</span>
+                  <span>Global Health ID Linked</span>
                 </div>
               </div>
 

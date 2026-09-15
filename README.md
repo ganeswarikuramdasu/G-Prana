@@ -1,23 +1,83 @@
 <div align="center">
 
-# 🏥 G-Prana
+# 🏥 G–Prana
 
-### A Blockchain-Inspired Digital Health Identity & Smart Healthcare Platform
+### Global Health Identity & Emergency Access
+_A Blockchain-Inspired Digital Health Identity & Smart Healthcare Platform_
 
-A full-stack final-year project that gives every citizen a unique **Global Health ID** tied to a smart **Access Card** — giving patients full control over their medical data while letting doctors, hospitals, and emergency responders securely access it with consent.
+**G = Global. Prana = "life-breath" (Sanskrit). One portable, lifelong Health Identity that travels with every person — and a fallback that lets a doctor save a life before asking for permission.**
+
+A full-stack healthcare platform that gives every citizen a unique **Global Health ID** tied to a smart **Access Card** — putting the patient in charge of their own medical data, while doctors, hospitals and emergency responders can see exactly what they need, when they need it, with consent and with a full audit trace.
 
 </div>
 
 ---
 
-## ✨ Features
+## 🌍 Why G-Prana Matters
+
+Health data today is **broken in exactly the wrong way**: it exists, but nobody can use it when it counts.
+
+### The problem
+- **Records are siloed.** Every hospital, clinic and lab keeps its own folder. Your history in one hospital is invisible — or a fax away — in the next. You are your own worst bridge between providers.
+- **Patients don't own their data.** Institutions hold copies; the individual rarely has a complete, portable record of their own life.
+- **Sensitive data leaks without consent.** Records move around by phone call, WhatsApp and USB stick. There is no patient-controlled permission, and no trace of who saw what.
+- **Emergency care is a race against paper.** A person admitted unconscious has allergies, medications, blood group and chronic conditions locked inside records a doctor cannot reach. Minutes are lost to guesswork.
+- **A system that fails you away from home.** Records that only live at "your" hospital are useless in an ambulance, in a new city, or far from the network you're registered with.
+
+### Why this platform is important
+G-Prana attacks the *root cause*: **the identity of the patient**. Instead of scattering data at the place of treatment, G-Prana binds the data to a portable **Global Health ID** that the patient controls, and couples it to a **consent-first authorization model** — designed around the two moments that actually matter:
+
+1. **Everyday care** — a doctor you choose sees your records **because you consented**, and only what you consented to.
+2. **Emergencies** — when the patient can't consent, a **break-glass** path lets a doctor act first and log the reason, and the justification is **audited** so the trust isn't free.
+
+Everything — every scan, every access, every emergency override — is written to an **immutable-style audit ledger**. The result is a system engineered for **privacy by default and accountability by design**, which is exactly what real national digital-health initiatives (and any serious health-tech product) demand.
+
+---
+
+## 💡 The Design Philosophy
+
+| Principle | What G-Prana does |
+|-----------|-------------------|
+| **Identity first** | Every person gets one portable Global Health ID (`NH-IND-2026-…` style) that outlives any single hospital stay. |
+| **Patient sovereignty** | The patient owns the record and controls consent. Access **without** consent is denied with a clear, honest message — not a silent 500. |
+| **Emergency override, audited** | When consent is impossible, **Break-Glass Access** grants a *time-boxed, reason-required, fully logged* path so a life is never blocked by bureaucracy. |
+| **Trust through audit** | Every access log, consent grant and override is recorded in an audit trail visible to patients and admins. |
+| **AI as a helper, not a hurdle** | The clinical assistant reads the record and *helps* doctors explain, sanity-check and summarize — it never replaces the human decision. |
+| **Works for everyone** | Physical card, digital card, QR, PIN, phone camera bridge — access that doesn't assume a smartphone or internet in the moment of care. |
+
+---
+
+## ✨ Core Capabilities
 
 ### 🪪 Global Health Identity
-- Every patient gets a unique health ID (e.g. `NH-IND-2026-88392014`)
-- Digital access card with generated token + PIN for offline verification
-- Scan a card (QR / 4-digit PIN) to instantly load a patient's consent-gated record
+- Every patient registers once and receives a **unique Global Health ID** that persists across hospitals, cities and years.
+- A single **Full Clinical Record** the patient carries and controls — symptoms, lab results, medications, diet and emergency profiles in one place.
 
-### 🧑‍⚕️ Role-Based Access
+### 💳 Smart Access Card
+- A physical + digital **Access Card** with a unique card token and an offline-verifiable PIN.
+- Scan a card (QR or 4-digit PIN) to instantly load a **consent-gated** record at any desk.
+- Works everywhere — a doctor, a receptionist or a roadside clinic can verify identity with zero dependency on the patient's phone or internet.
+
+### 🔐 Consent-First Access Control
+- No consent → **no records**, and the request is rejected with a clear, friendly "access permission is not given" message (never a crash, never a 500).
+- Patients can see and manage exactly which doctors/hospitals may view their data.
+- Card-only identifiers are strictly enforced: a raw health ID or patient ID can never be used as a card credential.
+
+### 🚨 Emergency Access & Break Glass
+- Dedicated emergency flow: identify a patient by **health ID, card, or even name**, review a pre-defined **Emergency Profile**, and open a **time-boxed break-glass** session when consent is impossible.
+- Every emergency session records **who** acted, **why** (justification), **when**, and **what was viewed** — logged straight to the audit ledger.
+
+### 📜 Immutable-Style Audit Trail
+- Every record access, card scan and consent change is logged (best-effort logging that can **never** break the main flow).
+- **Hierarchical audit viewer** for hospital admins and the super admin — full visibility over the whole network's access history.
+
+### 🤖 AI Clinical Assistant
+- **Contraindication & prescription safety checks** — catch risky medication interactions before they happen.
+- **Lab report & scan explanation** — the AI reads a PDF/report and returns a plain-language explanation, then the clinician reviews and saves.
+- **AI Summary** of a patient's record and **AI-generated diet plans** tailored to blood group and health profile.
+- Synthetic patient-data viewer so demos and testing never risk real health data.
+
+### 🧑‍⚕️ Role-Based Portals
 | Role | What they can do |
 |------|------------------|
 | **Patient** | Own & manage your Full Clinical Record, consent controls, diet plans, AI assistant, medication tracker |
@@ -25,20 +85,22 @@ A full-stack final-year project that gives every citizen a unique **Global Healt
 | **Hospital Admin** | Manage doctors, view all patient records, audit access logs |
 | **Super Admin** | Platform-wide control, security audit, system overview |
 
-### 🔐 Consent & Security
-- Every record access/scan is logged in an immutable-style **audit trail**
-- Hierarchical audit log viewer with full visibility
-- Emergency access mode with patient absence profiles
-- Manual record upload & lab-report AI explanation
-
-### 🤖 AI Clinical Assistant
-- Medication contraindication & prescription safety checks
-- Lab report & scan explanation assist
-- Diet plan generation based on blood group & health profile
-- Synthetic patient-data viewer (no live health-data risk)
-
 ### 📱 Mobile Camera Bridge
-- Pair a phone to scan cards/mobile-camera flow when no scanner is attached
+- Pair a phone to scan cards / use the mobile-camera flow when no physical scanner is attached.
+
+### 🔑 Secure Sign-In
+- Role-aware login with **OTP email verification** (Brevo) — an extra auth layer before a clinician enters the network.
+
+---
+
+## 🎯 Impact Summary
+
+- **Patients** stop being a pile of paperwork and become an owner of one coherent health story across every provider.
+- **Doctors** get context in seconds — allergies, meds, history — instead of guessing.
+- **Emergency teams** get a life-saving path that doesn't wait for consent that can't be given.
+- **Admins & regulators** get a complete, queryable audit of who accessed what — turning "trust me" into *"here's the ledger."*
+
+This is not just a CRUD app: it is a working demonstration of the **privacy + portability + emergency-access** triad that every national digital-health program is trying to build.
 
 ---
 
@@ -125,12 +187,15 @@ Copy `.env.example` → `.env` and fill in values. The backend defaults to commo
 | `POST` | `/auth/login` | Login (patient/doctor/hospital/super) |
 | `GET` | `/patient/profile`, `/patient/records` | Patient data |
 | `GET` | `/doctors` | Doctor directory |
+| `POST` | `/doctor/access-records` | Consent-gated record lookup (dashboard) |
+| `POST` | `/doctor/access-sessions` | Start an access session (consent / card / appointment / break-glass) |
+| `POST` | `/emergency/identify` | Identify a patient in emergency mode |
 | `POST` | `/card/mobile-bridge/create` | Pair a phone for card scanning |
 | `GET` | `/admin/all-records` | All patient records (admin) |
 | `POST` | `/access-sessions/{id}/end` | End an active access session |
 | `GET` | `/audit` | Security / audit trail |
 
-All responses are wrapped in the standard `ApiResponse` envelope.
+All responses are wrapped in the standard `ApiResponse` envelope. Business-rule failures (no consent, unknown patient, invalid card, bad input) return a clear `{ success: false, message }` with a proper HTTP status — never a generic 500.
 
 ---
 
@@ -241,6 +306,9 @@ Key tables the app creates:
 ---
 
 <div align="center">
+
+**G = Global · Prana = Life.**
+One identity, consent-first access, and an audited emergency path — so the right person gets the right care, at the right moment, without giving away their privacy.
 
 Built with ❤️ as a final-year project — secure, consent-first healthcare data for the digital era.
 

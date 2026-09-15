@@ -354,7 +354,7 @@ export const SuperAdminView: React.FC<SuperAdminViewProps> = ({
       <AppShell
         user={shellUser}
         roleLabel="Root Governance"
-        subtitle="National Gateway"
+        subtitle="Global Gateway"
         navItems={navItems}
         active={activeTab}
         onSelect={(k) => setActiveTab(k as any)}
@@ -501,7 +501,7 @@ export const SuperAdminView: React.FC<SuperAdminViewProps> = ({
               <div>
                 <h2 className="text-xl font-bold text-slate-900 flex items-center space-x-2">
                   <Building2 className="w-5 h-5 text-[#17C964]" />
-                  <span>National Health Hospital Nodes</span>
+                  <span>Global Health Hospital Nodes</span>
                 </h2>
                 <p className="text-xs text-slate-500">Accredited hospital networks and specialty clinics</p>
               </div>
@@ -764,7 +764,7 @@ export const SuperAdminView: React.FC<SuperAdminViewProps> = ({
             <div className="border-b border-slate-200 pb-4">
               <h2 className="text-xl font-bold text-slate-900 flex items-center space-x-2">
                 <MessageSquareWarning className="w-5 h-5 text-[#F2603C]" />
-                <span>National Complaints Hub</span>
+                <span>Global Complaints Hub</span>
               </h2>
               <p className="text-xs text-slate-500">
                 Every complaint raised by patients, doctors, and hospital admins across all modules. Resolve with an official note.
@@ -970,7 +970,7 @@ export const SuperAdminView: React.FC<SuperAdminViewProps> = ({
               <Building2 className="w-6 h-6" />
               <div>
                 <h3 className="font-bold text-slate-900 text-base">Provision New Hospital Node</h3>
-                <p className="text-xs text-slate-500">Connect specialty hospital to National Health Gateway</p>
+                <p className="text-xs text-slate-500">Connect specialty hospital to Global Health Gateway</p>
               </div>
             </div>
 
