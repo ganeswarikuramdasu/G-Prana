@@ -2,6 +2,7 @@ package com.pranacrux.service;
 
 import com.pranacrux.common.ApiException;
 import com.pranacrux.common.ApiResponse;
+import com.pranacrux.common.BloodGroupNormalizer;
 import com.pranacrux.common.PasswordValidator;
 import com.pranacrux.config.SuperAdminCredentials;
 import com.pranacrux.dto.auth.AuthRequests.*;
@@ -244,7 +245,10 @@ public class AuthService {
 
         String dob = req.getDob() != null ? req.getDob() : "1995-08-20";
         String gender = req.getGender() != null ? req.getGender() : "Male";
-        String bloodGroup = req.getBloodGroup() != null ? req.getBloodGroup() : "O+";
+        String bloodGroup = BloodGroupNormalizer.normalize(req.getBloodGroup());
+        if (bloodGroup == null) {
+            bloodGroup = "O+";
+        }
         double heightCm = req.getHeightCm() != null ? req.getHeightCm() : 170;
         double weightKg = req.getWeightKg() != null ? req.getWeightKg() : 68;
         String emergencyContactName = req.getEmergencyContactName() != null ? req.getEmergencyContactName() : "Family Contact";

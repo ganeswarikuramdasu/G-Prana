@@ -2460,7 +2460,7 @@ className="w-full bg-[#EDF1F5] border border-slate-200 rounded-xl px-3 py-2.5 te
                     <select value={accountForm.bloodGroup}
                       onChange={(e) => setAccountForm((p) => ({ ...p, bloodGroup: e.target.value }))}
                       className="w-full bg-[#EDF1F5] border border-slate-200 rounded-xl px-3 py-2 text-slate-900">
-                      {["Don't Know / Not Tested", "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"].map((bg) => (
+                      {["Unknown", "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"].map((bg) => (
                         <option key={bg} value={bg}>{bg}</option>
                       ))}
                     </select>

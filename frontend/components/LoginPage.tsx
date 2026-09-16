@@ -739,7 +739,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({
                     <label className="block text-[11px] text-slate-500 font-semibold mb-1">Blood group</label>
                     <select value={regBloodGroup} onChange={(e) => setRegBloodGroup(e.target.value)}
                       className="w-full bg-white border rounded-lg px-2 py-1.5 text-sm text-slate-900" style={{ borderColor: C.line }}>
-                      {["Don't Know / Not Tested", "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"].map((bg) => (
+                      {["Unknown", "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"].map((bg) => (
                         <option key={bg} value={bg}>{bg}</option>
                       ))}
                     </select>

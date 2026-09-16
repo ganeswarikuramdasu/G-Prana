@@ -1,5 +1,7 @@
 package com.pranacrux.entity;
 
+import com.pranacrux.common.BloodGroupNormalizer;
+
 import jakarta.persistence.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
@@ -81,7 +83,7 @@ public class EmergencyProfile {
     public String getPatientHealthId() { return patientHealthId; }
     public void setPatientHealthId(String patientHealthId) { this.patientHealthId = patientHealthId; }
     public String getBloodGroup() { return bloodGroup; }
-    public void setBloodGroup(String bloodGroup) { this.bloodGroup = bloodGroup; }
+    public void setBloodGroup(String bloodGroup) { this.bloodGroup = BloodGroupNormalizer.normalize(bloodGroup); }
     public List<String> getAllergies() { return allergies; }
     public void setAllergies(List<String> allergies) { this.allergies = allergies; }
     public List<String> getCriticalConditions() { return criticalConditions; }
@@ -103,7 +105,7 @@ public class EmergencyProfile {
         public Builder patient(User patient) { p.patient = patient; p.patientId = patient.getId(); return this; }
         public Builder patientId(String patientId) { p.patientId = patientId; return this; }
         public Builder patientHealthId(String patientHealthId) { p.patientHealthId = patientHealthId; return this; }
-        public Builder bloodGroup(String bloodGroup) { p.bloodGroup = bloodGroup; return this; }
+        public Builder bloodGroup(String bloodGroup) { p.setBloodGroup(bloodGroup); return this; }
         public Builder allergies(List<String> allergies) { p.allergies = allergies; return this; }
         public Builder criticalConditions(List<String> criticalConditions) { p.criticalConditions = criticalConditions; return this; }
         public Builder currentMedications(List<String> currentMedications) { p.currentMedications = currentMedications; return this; }

@@ -87,6 +87,9 @@ public class GlobalExceptionHandler {
         if (cause.contains("cannot be null") || cause.contains("doesn't have a default value")) {
             return "A required field was missing while saving. Please try again or contact support.";
         }
+        if (cause.contains("data too long") || cause.contains("data truncation")) {
+            return "One of the entered values is too long for its field. Please shorten it and try again.";
+        }
         return "This operation conflicts with existing data (e.g. a foreign key or duplicate value).";
     }
 

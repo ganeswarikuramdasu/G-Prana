@@ -1,5 +1,7 @@
 package com.pranacrux.entity;
 
+import com.pranacrux.common.BloodGroupNormalizer;
+
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -48,7 +50,7 @@ public class PatientProfile {
     public String getPatientHealthId() { return patientHealthId; }
     public void setPatientHealthId(String patientHealthId) { this.patientHealthId = patientHealthId; }
     public String getBloodGroup() { return bloodGroup; }
-    public void setBloodGroup(String bloodGroup) { this.bloodGroup = bloodGroup; }
+    public void setBloodGroup(String bloodGroup) { this.bloodGroup = BloodGroupNormalizer.normalize(bloodGroup); }
     public BigDecimal getHeightCm() { return heightCm; }
     public void setHeightCm(BigDecimal heightCm) { this.heightCm = heightCm; }
     public BigDecimal getWeightKg() { return weightKg; }
@@ -63,7 +65,7 @@ public class PatientProfile {
         public Builder userId(String userId) { profile.userId = userId; return this; }
         public Builder patient(User patient) { profile.patient = patient; profile.userId = patient.getId(); return this; }
         public Builder patientHealthId(String patientHealthId) { profile.patientHealthId = patientHealthId; return this; }
-        public Builder bloodGroup(String bloodGroup) { profile.bloodGroup = bloodGroup; return this; }
+        public Builder bloodGroup(String bloodGroup) { profile.setBloodGroup(bloodGroup); return this; }
         public Builder heightCm(BigDecimal heightCm) { profile.heightCm = heightCm; return this; }
         public Builder weightKg(BigDecimal weightKg) { profile.weightKg = weightKg; return this; }
         public Builder emergencyNotes(String emergencyNotes) { profile.emergencyNotes = emergencyNotes; return this; }
