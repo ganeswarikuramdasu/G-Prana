@@ -110,13 +110,13 @@ export const PatientView: React.FC<PatientViewProps> = ({
   const PATIENT_TABS: PatientTabKey[] = ["DASHBOARD", "EMERGENCY_PROFILE", "ACCESS_CARD", "RECORDS", "LAB_REPORTS", "AI_ASSISTANT", "VITALS_ANALYTICS", "MEDICATIONS", "CONSENTS", "APPOINTMENTS", "AUDIT_LOGS", "ACCOUNT"];
 
   const [activeTab, setActiveTab] = useState<PatientTabKey>(() => {
-    const saved = localStorage.getItem("gprana_tab_PATIENT");
+    const saved = localStorage.getItem("pranacrux_tab_PATIENT");
     return saved && (PATIENT_TABS as string[]).includes(saved) ? (saved as PatientTabKey) : "DASHBOARD";
   });
 
   useEffect(() => {
     try {
-      localStorage.setItem("gprana_tab_PATIENT", activeTab);
+      localStorage.setItem("pranacrux_tab_PATIENT", activeTab);
     } catch {
       // storage unavailable
     }
@@ -244,7 +244,7 @@ export const PatientView: React.FC<PatientViewProps> = ({
           doctorName: "Patient Uploaded",
           hospitalName: result.report?.labName || "Independent Diagnostics / Self Upload",
           symptoms: `Patient uploaded ${result.report?.recordType === "IMAGING_SCAN" ? "diagnostic scan" : "lab report"}`,
-          doctorNotes: result.summary || "Validated by G-Prana AI",
+          doctorNotes: result.summary || "Validated by PranaCrux AI",
           aiSummary: result.summary || "",
           flaggedValues: result.flaggedValues || [],
           labResults: parameters.map((p: any) => ({
@@ -845,7 +845,7 @@ export const PatientView: React.FC<PatientViewProps> = ({
   const shellUser = appUser || {
     id: "",
     name: patientName || "Patient",
-    email: "patient@gprana.org",
+    email: "patient@pranacrux.org",
     role: "PATIENT" as UserRole,
   };
 
@@ -1356,7 +1356,7 @@ export const PatientView: React.FC<PatientViewProps> = ({
                   {/* AI Summary */}
                   {report.aiSummary && (
                     <div className="bg-[#EDF1F5] border border-slate-200 rounded-2xl p-4 space-y-1.5">
-                      <p className="text-[10px] font-bold text-[#17C964] uppercase tracking-wide">G-Prana AI Summary</p>
+                      <p className="text-[10px] font-bold text-[#17C964] uppercase tracking-wide">PranaCrux AI Summary</p>
                       <p className="text-xs text-slate-700 leading-relaxed">{report.aiSummary}</p>
                     </div>
                   )}
@@ -2136,7 +2136,7 @@ export const PatientView: React.FC<PatientViewProps> = ({
               appUser={{
                 id: appUser?.id || profile.userId,
                 name: appUser?.name || patientName,
-                email: appUser?.email || "patient@gprana.org",
+                email: appUser?.email || "patient@pranacrux.org",
                 role: "PATIENT",
               }}
               module="PATIENT"
@@ -2409,7 +2409,7 @@ className="w-full bg-[#EDF1F5] border border-slate-200 rounded-xl px-3 py-2.5 te
                 </div>
                 <div>
                   <h2 className="text-xl font-black text-slate-900">Account & Profile</h2>
-                  <p className="text-xs text-slate-500">View and update every detail of your G-Prana identity</p>
+                  <p className="text-xs text-slate-500">View and update every detail of your PranaCrux identity</p>
                 </div>
               </div>
               <span className="px-3 py-1 rounded-full text-[10px] font-bold bg-[#17C964]/10 text-[#17C964] border border-[#17C964]/40 font-mono">
@@ -2746,7 +2746,7 @@ className="w-full bg-[#EDF1F5] border border-slate-200 rounded-xl px-3 py-2.5 te
               </div>
               <div>
                 <h3 className="font-bold text-slate-900 text-base">Upload Lab Report / Scan</h3>
-                <p className="text-xs text-[#17C964] font-mono">G-Prana AI validates the document before saving</p>
+                <p className="text-xs text-[#17C964] font-mono">PranaCrux AI validates the document before saving</p>
               </div>
             </div>
 
@@ -2777,7 +2777,7 @@ className="w-full bg-[#EDF1F5] border border-slate-200 rounded-xl px-3 py-2.5 te
             {aiAnalyzing && (
               <div className="bg-[#EDF1F5] border border-slate-200 rounded-2xl p-6 flex flex-col items-center space-y-3">
                 <RefreshCw className="w-8 h-8 text-[#17C964] animate-spin" />
-                <p className="text-sm font-bold text-slate-800">G-Prana AI is validating & reading the document...</p>
+                <p className="text-sm font-bold text-slate-800">PranaCrux AI is validating & reading the document...</p>
                 <p className="text-[11px] text-slate-500 text-center">
                   Checking that this is a genuine lab report / diagnostic scan, extracting results and generating a summary.
                 </p>
@@ -2825,7 +2825,7 @@ className="w-full bg-[#EDF1F5] border border-slate-200 rounded-xl px-3 py-2.5 te
                 {aiResult.summary && (
                   <div className="bg-[#EDF1F5] border border-slate-200 rounded-2xl p-4 space-y-1.5">
                     <p className="text-[10px] font-bold text-[#17C964] uppercase tracking-wide">
-                      AI Summary{aiResult.source === "GEMINI" ? " (G-Prana AI)" : ""}
+                      AI Summary{aiResult.source === "GEMINI" ? " (PranaCrux AI)" : ""}
                     </p>
                     <p className="text-xs text-slate-700 leading-relaxed">{aiResult.summary}</p>
                   </div>

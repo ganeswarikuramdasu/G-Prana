@@ -72,13 +72,13 @@ export const HospitalAdminView: React.FC<HospitalAdminViewProps> = ({
   const HOSPITAL_ADMIN_TABS = ["DASHBOARD", "ROSTER", "DEPARTMENTS", "PATIENT_RECORDS", "AUDIT_LOGS", "SETTINGS", "COMPLAINTS"];
 
   const [activeTab, setActiveTab] = useState<"DASHBOARD" | "ROSTER" | "DEPARTMENTS" | "PATIENT_RECORDS" | "AUDIT_LOGS" | "SETTINGS" | "COMPLAINTS">(() => {
-    const saved = localStorage.getItem("gprana_tab_HOSPITAL_ADMIN");
+    const saved = localStorage.getItem("pranacrux_tab_HOSPITAL_ADMIN");
     return saved && HOSPITAL_ADMIN_TABS.includes(saved) ? (saved as any) : "DASHBOARD";
   });
 
   useEffect(() => {
     try {
-      localStorage.setItem("gprana_tab_HOSPITAL_ADMIN", activeTab);
+      localStorage.setItem("pranacrux_tab_HOSPITAL_ADMIN", activeTab);
     } catch {
       // storage unavailable
     }

@@ -993,7 +993,7 @@ export const DoctorProfileSettings: React.FC<DoctorProfileSettingsProps> = ({
             <div className="p-4 bg-[#EDF1F5] border border-slate-200 rounded-2xl flex items-center justify-between">
               <div>
                 <span className="font-bold text-slate-900 block">Two-Factor Authentication (2FA)</span>
-                <span className="text-slate-500 text-[11px]">Require OTP verification upon signing in into G-Prana</span>
+                <span className="text-slate-500 text-[11px]">Require OTP verification upon signing in into PranaCrux</span>
               </div>
               <span className="px-2.5 py-1 bg-[#E9FBF1] text-[#17C964] border border-[#17C964]/30 rounded-lg text-[10px] font-bold">
                 ACTIVE

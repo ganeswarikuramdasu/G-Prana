@@ -13,7 +13,7 @@ A full-stack healthcare platform that gives every citizen a unique **Global Heal
 
 ---
 
-## 🌍 Why G-Prana Matters
+## 🌍 Why PranaCrux Matters
 
 Health data today is **broken in exactly the wrong way**: it exists, but nobody can use it when it counts.
 
@@ -25,7 +25,7 @@ Health data today is **broken in exactly the wrong way**: it exists, but nobody 
 - **A system that fails you away from home.** Records that only live at "your" hospital are useless in an ambulance, in a new city, or far from the network you're registered with.
 
 ### Why this platform is important
-G-Prana attacks the *root cause*: **the identity of the patient**. Instead of scattering data at the place of treatment, G-Prana binds the data to a portable **Global Health ID** that the patient controls, and couples it to a **consent-first authorization model** — designed around the two moments that actually matter:
+PranaCrux attacks the *root cause*: **the identity of the patient**. Instead of scattering data at the place of treatment, PranaCrux binds the data to a portable **Global Health ID** that the patient controls, and couples it to a **consent-first authorization model** — designed around the two moments that actually matter:
 
 1. **Everyday care** — a doctor you choose sees your records **because you consented**, and only what you consented to.
 2. **Emergencies** — when the patient can't consent, a **break-glass** path lets a doctor act first and log the reason, and the justification is **audited** so the trust isn't free.
@@ -36,7 +36,7 @@ Everything — every scan, every access, every emergency override — is written
 
 ## 💡 The Design Philosophy
 
-| Principle | What G-Prana does |
+| Principle | What PranaCrux does |
 |-----------|-------------------|
 | **Identity first** | Every person gets one portable Global Health ID (`NH-IND-2026-…` style) that outlives any single hospital stay. |
 | **Patient sovereignty** | The patient owns the record and controls consent. Access **without** consent is denied with a clear, honest message — not a silent 500. |
@@ -119,11 +119,11 @@ This is not just a CRUD app: it is a working demonstration of the **privacy + po
 ## 📁 Project Structure
 
 ```
-gprana/
+pranacrux/
 ├── frontend/               # React + Vite + Tailwind UI
 │   └── components/         # All feature views & modals
 ├── backend-java/           # Spring Boot backend (single backend)
-│   └── src/main/java/com/gprana/
+│   └── src/main/java/com/pranacrux/
 │       ├── config/         # Cors, DataSeeder, security constants
 │       ├── controller/     # REST endpoints
 │       ├── service/        # Business logic
@@ -151,7 +151,7 @@ gprana/
 Create a database (the backend creates tables automatically on first boot):
 
 ```sql
-CREATE DATABASE IF NOT EXISTS gprana;
+CREATE DATABASE IF NOT EXISTS pranacrux;
 ```
 
 ### 2. Backend (Spring Boot)
@@ -221,7 +221,7 @@ HTTPS is automatic everywhere (Vercel + Render), so there's **no mixed-content p
 3. Create the database (Hibernate auto-creates tables on first boot):
    ```bash
    mysql -h <AIVEN_HOST>.aivencloud.com -P <port> -u avnadmin -p
-   CREATE DATABASE IF NOT EXISTS gprana;
+   CREATE DATABASE IF NOT EXISTS pranacrux;
    ```
 
 > ⚠️ Render can't reach `localhost` — the DB must be the **Aiven public host**, and Aiven must allow connections from Render (public access on). if your Aiven plan requires an **allowlist** for IPs, Render free egress IPs are dynamic — enable public access without a strict allowlist, or add Render's IPs.
@@ -240,13 +240,13 @@ HTTPS is automatic everywhere (Vercel + Render), so there's **no mixed-content p
    MYSQL_PASSWORD       <your-aiven-password>
    SUPER_ADMIN_EMAIL    ganeswarikuramdasu@gmail.com
    SUPER_ADMIN_PASSWORD <your-super-admin-password>
-   CORS_ORIGINS         https://g-prana-eight.vercel.app,http://localhost:5173,http://localhost:3000
+   CORS_ORIGINS         https://pranacrux-eight.vercel.app,http://localhost:5173,http://localhost:3000
    APP_URL              https://<your-service>.onrender.com
    MYSQL_SSL_MODE       REQUIRED               # Aiven requires TLS
    MYSQL_DATABASE       defaultdb              # or your created DB name
    GEMINI_API_KEY       <optional>
    BREVO_API_KEY        <your-brevo-key>       # OTP emails over HTTPS (free: 300/day)
-   EMAIL_FROM           "G-Prana Identity <ganeswarikuramdasu@gmail.com>"   # must be a sender VERIFIED in Brevo
+   EMAIL_FROM           "PranaCrux Identity <ganeswarikuramdasu@gmail.com>"   # must be a sender VERIFIED in Brevo
    ```
 4. Render gives you a public URL: `https://<your-service>.onrender.com`.
    - Health check: `https://<your-service>.onrender.com/api/health`.
@@ -264,7 +264,7 @@ The app calls relative `/api/...` which **Vercel rewrites** to your Render backe
    ```json
    "destination": "https://<your-service>.onrender.com/api/$1"
    ```
-4. Redeploy and open your `https://g-prana-eight.vercel.app`.
+4. Redeploy and open your `https://pranacrux-eight.vercel.app`.
 
 > **Alternative — build-time env:** instead of the proxy, bake the Render URL into the build with `VITE_API_BASE_URL=https://<your-service>.onrender.com npm run build`. See `frontend/utils/apiBase.ts`.
 
@@ -276,8 +276,8 @@ A `render.yaml` is included so you can deploy the backend with **Render → New 
 
 ## 🗄️ Where to Check Your Database
 
-**Locally** — connect any MySQL client to `localhost:3306`, database `gprana`:
-- CLI: `mysql -u root -p gprana`
+**Locally** — connect any MySQL client to `localhost:3306`, database `pranacrux`:
+- CLI: `mysql -u root -p pranacrux`
 - GUI: **MySQL Workbench**, **DataGrip**, or **DBeaver** (`localhost:3306`, user `root`)
 
 Key tables the app creates:

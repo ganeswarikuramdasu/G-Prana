@@ -65,13 +65,13 @@ export const SuperAdminView: React.FC<SuperAdminViewProps> = ({
   const SUPER_ADMIN_TABS = ["DASHBOARD", "HOSPITALS", "DOCTORS", "AUDIT_LOGS", "PATIENTS", "RECORDS", "COMPLAINTS", "MALPRACTICES"];
 
   const [activeTab, setActiveTab] = useState<"DASHBOARD" | "HOSPITALS" | "DOCTORS" | "AUDIT_LOGS" | "PATIENTS" | "RECORDS" | "COMPLAINTS" | "MALPRACTICES">(() => {
-    const saved = localStorage.getItem("gprana_tab_SUPER_ADMIN");
+    const saved = localStorage.getItem("pranacrux_tab_SUPER_ADMIN");
     return saved && SUPER_ADMIN_TABS.includes(saved) ? (saved as any) : "DASHBOARD";
   });
 
   useEffect(() => {
     try {
-      localStorage.setItem("gprana_tab_SUPER_ADMIN", activeTab);
+      localStorage.setItem("pranacrux_tab_SUPER_ADMIN", activeTab);
     } catch {
       // storage unavailable
     }
@@ -345,7 +345,7 @@ export const SuperAdminView: React.FC<SuperAdminViewProps> = ({
   const shellUser = appUser || {
     id: "super_admin",
     name: "Super Admin",
-    email: "superadmin@gprana.org",
+    email: "superadmin@pranacrux.org",
     role: "SUPER_ADMIN" as UserRole,
   };
 
@@ -373,10 +373,10 @@ export const SuperAdminView: React.FC<SuperAdminViewProps> = ({
                   <span>NATIONAL HEALTH NETWORK ONLINE</span>
                 </div>
                 <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
-                  Super Admin Command Center: <span className="bg-gradient-to-r from-[#3CE584] to-[#17C964] bg-clip-text text-transparent">{appUser?.name || "G-Prana"}</span>
+                  Super Admin Command Center: <span className="bg-gradient-to-r from-[#3CE584] to-[#17C964] bg-clip-text text-transparent">{appUser?.name || "PranaCrux"}</span>
                 </h1>
                 <p className="text-xs sm:text-sm text-slate-200 max-w-xl">
-                  Govern the whole G-Prana network: hospitals, licensed physicians, patients, the global EHR ledger, audit trails, complaints, and the malpractice tracker.
+                  Govern the whole PranaCrux network: hospitals, licensed physicians, patients, the global EHR ledger, audit trails, complaints, and the malpractice tracker.
                 </p>
               </div>
               <button
@@ -719,7 +719,7 @@ export const SuperAdminView: React.FC<SuperAdminViewProps> = ({
                       </span>
                     </div>
                     <div className="text-xs font-mono text-slate-500 space-y-1">
-                      <div>Email: <strong className="text-slate-800">{p.email || "patient@gprana.org"}</strong></div>
+                      <div>Email: <strong className="text-slate-800">{p.email || "patient@pranacrux.org"}</strong></div>
                       <div>Role: <strong className="text-[#17C964]">PATIENT CITIZEN</strong></div>
                     </div>
                   </div>
@@ -774,7 +774,7 @@ export const SuperAdminView: React.FC<SuperAdminViewProps> = ({
               appUser={{
                 id: appUser?.id || "super_admin",
                 name: appUser?.name || "Super Admin",
-                email: appUser?.email || "superadmin@gprana.org",
+                email: appUser?.email || "superadmin@pranacrux.org",
                 role: appUser?.role || "SUPER_ADMIN",
               }}
               module="SUPER_ADMIN"

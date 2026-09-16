@@ -31,7 +31,7 @@ export default function App() {
     globalHealthId?: string;
   } | null>(() => {
     try {
-      const raw = localStorage.getItem("gprana_session");
+      const raw = localStorage.getItem("pranacrux_session");
       if (!raw) return null;
       const parsed = JSON.parse(raw);
       return parsed && parsed.user ? parsed.user : null;
@@ -51,9 +51,9 @@ export default function App() {
   useEffect(() => {
     try {
       if (currentUser) {
-        localStorage.setItem("gprana_session", JSON.stringify({ user: currentUser }));
+        localStorage.setItem("pranacrux_session", JSON.stringify({ user: currentUser }));
       } else {
-        localStorage.removeItem("gprana_session");
+        localStorage.removeItem("pranacrux_session");
       }
     } catch {
       // storage unavailable
@@ -146,7 +146,7 @@ export default function App() {
             gender: p.gender || "MALE",
             bloodGroup: p.bloodGroup || "O+",
             phone: "+91 98765 43210",
-            email: p.email || "patient@gprana.org",
+            email: p.email || "patient@pranacrux.org",
             address: "Healthcare Sector 4, New Delhi",
             emergencyContactName: p.emergencyContactName || "Family Contact",
             emergencyContactPhone: "+91 98000 11111",
@@ -166,7 +166,7 @@ export default function App() {
         }
       }
     } catch (err) {
-      console.error("Failed to load G-Prana data:", err);
+      console.error("Failed to load PranaCrux data:", err);
     }
   };
 
@@ -256,7 +256,7 @@ export default function App() {
     id: currentUser?.id || "doc_unassigned",
     userId: currentUser?.id || "u_doc_unassigned",
     name: currentUser?.name || "Practicing Medical Doctor",
-    email: currentUser?.email || "doctor@gprana.org",
+    email: currentUser?.email || "doctor@pranacrux.org",
     specialization: "General Medicine",
     licenseNumber: "MCI-2026-REGISTERED",
     experienceYears: 5,
@@ -405,7 +405,7 @@ export default function App() {
           // Fresh login must land on the Dashboard for every role
           try {
             ["PATIENT", "DOCTOR", "HOSPITAL_ADMIN", "SUPER_ADMIN"].forEach((r) => {
-              localStorage.removeItem(`gprana_tab_${r}`);
+              localStorage.removeItem(`pranacrux_tab_${r}`);
             });
           } catch {
             // storage unavailable

@@ -97,9 +97,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onOpenLogin }) => {
       >
         <nav className="w-full max-w-6xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
           <a href="#top" className="flex items-center gap-2.5">
-            <img src="/g-prana-icon.svg" alt="G-Prana" className="w-8 h-8 drop-shadow-lg" style={{ filter: `drop-shadow(0 4px 14px ${C.neon}66)` }} />
+            <img src="/pranacrux-icon.svg" alt="PranaCrux" className="w-8 h-8 drop-shadow-lg" style={{ filter: `drop-shadow(0 4px 14px ${C.neon}66)` }} />
             <div className="leading-none">
-              <span className="text-[17px] font-bold tracking-tight text-white block">G-Prana</span>
+              <span className="text-[17px] font-bold tracking-tight text-white block">PranaCrux</span>
               <span className="text-[9px] font-bold tracking-[0.18em] uppercase block mt-0.5" style={{ color: C.neonBright }}>
                 Global Health Identity &amp; Emergency Access
               </span>
@@ -172,7 +172,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onOpenLogin }) => {
           </h1>
 
           <p className="mt-6 text-lg sm:text-xl text-[#9FB0C6] max-w-2xl mx-auto leading-relaxed">
-            G-Prana connects patients, doctors, and hospitals around one portable,
+            PranaCrux connects patients, doctors, and hospitals around one portable,
             consent-driven record &mdash; so the right information is always at the point of care.
           </p>
 
@@ -375,7 +375,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onOpenLogin }) => {
                 <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ backgroundColor: C.neon }}>
                   <Activity className="w-4 h-4" style={{ color: "#06130B" }} />
                 </div>
-                <span className="text-base font-bold text-white">G-Prana</span>
+                <span className="text-base font-bold text-white">PranaCrux</span>
               </div>
               <p className="text-[13px] leading-relaxed max-w-xs text-[#8FA2BA]">
                 One nation, one health identity, continuous care.
@@ -393,7 +393,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onOpenLogin }) => {
           </div>
 
           <div className="mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3" style={{ borderTop: `1px solid ${C.border}` }}>
-            <p className="text-xs text-[#5D6B80]">© {new Date().getFullYear()} G-Prana Global Digital Health Identity Platform</p>
+            <p className="text-xs text-[#5D6B80]">© {new Date().getFullYear()} PranaCrux Global Digital Health Identity Platform</p>
             <p className="text-[11px] text-[#5D6B80]">Aligned with National Health Authority · HIPAA · MCI</p>
           </div>
         </div>

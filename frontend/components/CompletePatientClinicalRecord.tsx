@@ -297,7 +297,7 @@ export const CompletePatientClinicalRecord: React.FC<CompletePatientClinicalReco
           flaggedValues: aiResult?.flaggedValues || [],
           fileName: labFileName || labTestName.replace(/\s+/g, "_") + ".pdf",
           fileSize: labAttachment ? `${(labAttachment.size / 1024).toFixed(1)} KB` : "1.4 MB",
-          attachmentUrl: labAttachment ? `secure://gprana-vault/${patient.globalHealthId}/${labFileName}` : `secure://gprana-vault/${patient.globalHealthId}/${labTestName.replace(/\s+/g, "_")}.pdf`,
+          attachmentUrl: labAttachment ? `secure://pranacrux-vault/${patient.globalHealthId}/${labFileName}` : `secure://pranacrux-vault/${patient.globalHealthId}/${labTestName.replace(/\s+/g, "_")}.pdf`,
           attachmentDataUrl: labAttachment?.dataUrl || null,
           labResults: (aiResult?.report?.parameters || []).map((p: any) => ({
             parameter: p.name,
@@ -833,7 +833,7 @@ export const CompletePatientClinicalRecord: React.FC<CompletePatientClinicalReco
       {sessionEnded && (
         <div className="bg-[#3A1410]/80 border border-[#F2603C]/50 rounded-2xl p-4 text-xs text-[#F8B4A8] flex items-center space-x-3">
           <Lock className="w-5 h-5 text-[#F2603C] shrink-0" />
-          <span>Emergency Break-Glass session has been closed and logged to the G-Prana Audit Ledger.</span>
+          <span>Emergency Break-Glass session has been closed and logged to the PranaCrux Audit Ledger.</span>
         </div>
       )}
 
@@ -1274,7 +1274,7 @@ export const CompletePatientClinicalRecord: React.FC<CompletePatientClinicalReco
                   <div className="space-y-2">
                     {lab.aiSummary && (
                       <div className="p-2.5 bg-[#EDF1F5] rounded-2xl border border-slate-200">
-                        <strong className="text-[#17C964] font-mono block text-[11px]">G-Prana AI Summary:</strong>
+                        <strong className="text-[#17C964] font-mono block text-[11px]">PranaCrux AI Summary:</strong>
                         <span className="text-slate-800">{lab.aiSummary}</span>
                       </div>
                     )}
@@ -2196,7 +2196,7 @@ export const CompletePatientClinicalRecord: React.FC<CompletePatientClinicalReco
             {!aiResult && !aiAnalyzing && (
               <div className="space-y-2">
                 <p className="text-slate-500">
-                  Select a lab report / diagnostic scan. G-Prana AI validates the document before saving.
+                  Select a lab report / diagnostic scan. PranaCrux AI validates the document before saving.
                 </p>
                 <input
                   type="file"
@@ -2221,7 +2221,7 @@ export const CompletePatientClinicalRecord: React.FC<CompletePatientClinicalReco
             {aiAnalyzing && (
               <div className="bg-[#EDF1F5] border border-slate-200 rounded-2xl p-6 flex flex-col items-center space-y-3">
                 <RefreshCw className="w-8 h-8 text-[#17C964] animate-spin" />
-                <p className="text-sm font-bold text-slate-800">G-Prana AI is validating the document...</p>
+                <p className="text-sm font-bold text-slate-800">PranaCrux AI is validating the document...</p>
                 <p className="text-[11px] text-slate-500 text-center">
                   Checking this is a genuine lab report / scan, extracting results and generating a summary.
                 </p>
@@ -2264,7 +2264,7 @@ export const CompletePatientClinicalRecord: React.FC<CompletePatientClinicalReco
                 <div className="bg-[#E9FBF1] border border-[#17C964]/40 rounded-2xl p-3 flex items-center space-x-2">
                   <CheckCircle2 className="w-5 h-5 text-[#17C964] shrink-0" />
                   <p className="text-[11px] font-bold text-[#0F6B3D]">
-                    Valid document detected{aiResult.source === "GEMINI" ? " by G-Prana AI" : ""} — fields auto-filled. Review & save.
+                    Valid document detected{aiResult.source === "GEMINI" ? " by PranaCrux AI" : ""} — fields auto-filled. Review & save.
                   </p>
                 </div>
 

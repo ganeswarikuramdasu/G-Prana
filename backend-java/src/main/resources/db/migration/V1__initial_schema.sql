@@ -1,5 +1,5 @@
 -- ============================================================================
--- G-Prana Database Schema V1
+-- PranaCrux Database Schema V1
 -- Production-grade healthcare identity platform
 -- ============================================================================
 -- This migration creates all 24 tables with proper foreign keys, indexes,
