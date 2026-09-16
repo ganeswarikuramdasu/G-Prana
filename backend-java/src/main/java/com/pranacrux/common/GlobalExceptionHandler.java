@@ -58,12 +58,36 @@ public class GlobalExceptionHandler {
                 .body(ApiResponse.fail("Invalid request value provided. Check date fields (YYYY-MM-DD) and numeric fields."));
     }
 
-    // FK / unique violations leak raw DB messages; map them to a clean 409/400.
+    // FK / unique violations leak raw DB messages; map them to a clean 409 with a
+    // message that tells the user what actually went wrong.
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<ApiResponse> handleDataIntegrity(DataIntegrityViolationException ex) {
         log.warn("Data integrity violation", ex);
-        return ResponseEntity.status(HttpStatus.CONFLICT)
-                .body(ApiResponse.fail("This operation conflicts with existing data (e.g. a foreign key or duplicate value)."));
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(ApiResponse.fail(conflictMessage(ex)));
+    }
+
+    static String conflictMessage(DataIntegrityViolationException ex) {
+        Throwable specific = ex.getMostSpecificCause() != null ? ex.getMostSpecificCause() : ex;
+        String cause = specific.getMessage() != null ? specific.getMessage().toLowerCase() : "";
+        if (cause.contains("duplicate entry")) {
+            if (cause.contains("email")) {
+                return "This email address is already registered. Please log in instead, or use a different email address.";
+            }
+            if (cause.contains("patient_health_id") || cause.contains("health")) {
+                return "Your health ID collided with an existing record. Please try again (a new one is generated each attempt).";
+            }
+            if (cause.contains("card_identifier") || cause.contains("secure_token")) {
+                return "Your access card could not be issued due to a collision. Please try again.";
+            }
+            return "This record already exists. Please log in instead, or use different details.";
+        }
+        if (cause.contains("foreign key")) {
+            return "This operation references a record that no longer exists. Please refresh and try again.";
+        }
+        if (cause.contains("cannot be null") || cause.contains("doesn't have a default value")) {
+            return "A required field was missing while saving. Please try again or contact support.";
+        }
+        return "This operation conflicts with existing data (e.g. a foreign key or duplicate value).";
     }
 
     @ExceptionHandler(ConstraintViolationException.class)

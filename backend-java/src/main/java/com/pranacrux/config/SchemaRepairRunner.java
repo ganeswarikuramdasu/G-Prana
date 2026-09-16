@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -54,6 +56,7 @@ public class SchemaRepairRunner implements CommandLineRunner {
     @Override
     public void run(String... args) {
         dropColumnIfPresent(DEAD_COLUMN);
+        dropStaleUniqueIndex("users", "email");
     }
 
     /**
@@ -80,6 +83,41 @@ public class SchemaRepairRunner implements CommandLineRunner {
             log.info("SchemaRepairRunner: {} column check complete (no-op if already dropped)", column);
         } catch (Exception e) {
             log.warn("SchemaRepairRunner: could not inspect/drop `{}` — starting anyway (safe): {}", column, e.getMessage());
+        }
+    }
+
+    /**
+     * Idempotently drops a leftover single-column UNIQUE index on {@code table(column)}.
+     *
+     * <p>A dead multilingual-era {@code @Column(unique = true)} on {@code users.email}
+     * left a global unique index behind. The current code scopes email uniqueness to
+     * {@code (email, role)} (see {@code existsByEmailIgnoreCaseAndRole} and role-scoped
+     * login), and fresh schemas carry no such index. On the live DB the stale index made
+     * every cross-role registration fail at INSERT with a
+     * {@code DataIntegrityViolationException} → the misleading 409 "This operation
+     * conflicts with existing data...". Dropping it realigns the DB with the entity/app.
+     */
+    private void dropStaleUniqueIndex(String table, String column) {
+        String schema = schemaName();
+        try (Connection conn = dataSource.getConnection();
+             Statement stmt = conn.createStatement()) {
+
+            String q = "SELECT DISTINCT index_name FROM information_schema.statistics " +
+                    "WHERE table_schema = '" + schema + "' AND table_name = '" + table + "' " +
+                    "AND column_name = '" + column + "' AND non_unique = 0 AND index_name <> 'PRIMARY'";
+            List<String> stale = new ArrayList<>();
+            try (ResultSet rs = stmt.executeQuery(q)) {
+                while (rs.next()) {
+                    stale.add(rs.getString("index_name"));
+                }
+            }
+            for (String index : stale) {
+                log.warn("SchemaRepairRunner: dropping stale UNIQUE index `{}` on {}({}) (blocked registration with a 409)", index, table, column);
+                stmt.executeUpdate("ALTER TABLE `" + table + "` DROP INDEX `" + index + "`");
+            }
+            log.info("SchemaRepairRunner: {}({}) unique-index check complete (no-op if already dropped)", table, column);
+        } catch (Exception e) {
+            log.warn("SchemaRepairRunner: could not inspect/drop unique index on {}({}) — starting anyway (safe): {}", table, column, e.getMessage());
         }
     }
 
