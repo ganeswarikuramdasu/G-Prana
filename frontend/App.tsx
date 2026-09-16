@@ -155,7 +155,7 @@ export default function App() {
             chronicConditions: [],
             insuranceProvider: p.insuranceProvider || "PM-JAY Universal Insurance",
             insurancePolicyNumber: "PMJAY-2026-901",
-            qrCodeData: `NEXUSHEALTH:${p.globalHealthId || "NH-IND-2026-PAT01"}`
+            qrCodeData: `PRANACRUX:${p.globalHealthId || "NH-IND-2026-PAT01"}`
           }))
         );
       }
@@ -301,7 +301,7 @@ export default function App() {
     allergies: [],
     chronicConditions: [],
     lifestyle: { smoking: "Never", alcohol: "Never", exerciseDaysPerWeek: 3 },
-    qrCodeData: `NEXUSHEALTH:${currentUser?.globalHealthId || "NH-IND-2026-NEW"}:${currentUser?.name || "Patient"}:O+`
+    qrCodeData: `PRANACRUX:${currentUser?.globalHealthId || "NH-IND-2026-NEW"}:${currentUser?.name || "Patient"}:O+`
   };
 
   const handleApplyHospital = async (hospitalId: string) => {

@@ -342,7 +342,7 @@ export const AccessCardView: React.FC<AccessCardViewProps> = ({
                       NH
                     </div>
                     <div>
-                      <h4 className="font-extrabold tracking-wider text-sm uppercase">NEXUSHEALTH</h4>
+                      <h4 className="font-extrabold tracking-wider text-sm uppercase">PRANACRUX</h4>
                       <p className="text-[9px] text-[#3CE584] font-mono tracking-widest uppercase">Global Health Identity Card</p>
                     </div>
                   </div>
@@ -592,7 +592,7 @@ export const AccessCardView: React.FC<AccessCardViewProps> = ({
             {/* SCREEN PREVIEW */}
             <div className="bg-white text-slate-900 p-5 rounded-2xl border-2 border-[#17C964] space-y-3 font-sans shadow-lg">
               <div className="flex justify-between items-center border-b border-slate-300 pb-2">
-                <span className="font-black text-[#17C964] text-sm tracking-wider uppercase">NEXUSHEALTH</span>
+                <span className="font-black text-[#17C964] text-sm tracking-wider uppercase">PRANACRUX</span>
                 <span className="text-[10px] font-mono text-[#17C964] font-bold">GLOBAL HEALTH CARD</span>
               </div>
 
@@ -659,7 +659,7 @@ export const AccessCardView: React.FC<AccessCardViewProps> = ({
             <div style={{ padding: "4mm 5mm", display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
               <div>
                 <div style={{ display: "flex", alignItems: "baseline", gap: "6px" }}>
-                  <span style={{ fontWeight: 900, fontSize: "13px", letterSpacing: "1px", color: "#3CE584" }}>NEXUSHEALTH</span>
+                  <span style={{ fontWeight: 900, fontSize: "13px", letterSpacing: "1px", color: "#3CE584" }}>PRANACRUX</span>
                   <span style={{ fontSize: "8px", color: "#9CA3AF", letterSpacing: "1px", fontWeight: 600 }}>GLOBAL HEALTH CARD</span>
                 </div>
 

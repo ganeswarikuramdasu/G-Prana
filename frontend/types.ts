@@ -559,7 +559,7 @@ export interface PatientRecordAccessLog {
   denialReason?: string;
 }
 
-// NEXUSHEALTH CLINICAL MEDICATION SYSTEM
+// PRANACRUX CLINICAL MEDICATION SYSTEM
 export type MedicationStatus = "ACTIVE" | "COMPLETED" | "DISCONTINUED";
 
 export interface PatientMedication {

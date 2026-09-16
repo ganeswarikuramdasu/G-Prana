@@ -55,7 +55,7 @@ public class MobileBridgeService {
 
         Map<String, Object> payload = new LinkedHashMap<>();
         payload.put("scannedCode", scannedCode != null && !scannedCode.isBlank()
-                ? scannedCode : "NEXUSHEALTH_CARD_TOKEN:NXAC-a1b2c3d4e5f6");
+                ? scannedCode : "PRANACRUX_CARD_TOKEN:NXAC-a1b2c3d4e5f6");
         payload.put("scanType", scanType != null && !scanType.isBlank() ? scanType : "QR_CODE");
         payload.put("photoData", photoData);
         payload.put("scannedAt", java.time.OffsetDateTime.now().toString());

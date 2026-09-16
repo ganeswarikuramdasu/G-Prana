@@ -505,7 +505,7 @@ export const DoctorPatientAccessCenter: React.FC<DoctorPatientAccessCenterProps>
                   type="text"
                   value={cardTokenQuery}
                   onChange={(e) => setCardTokenQuery(e.target.value)}
-                  placeholder="e.g. CARD-PAT-1001 or NEXUSHEALTH:NH-IND-2026-XXXXXXXX"
+                  placeholder="e.g. CARD-PAT-1001 or PRANACRUX:NH-IND-2026-XXXXXXXX"
                   className="w-full bg-[#EDF1F5] border border-slate-200 rounded-xl px-4 py-3 text-slate-900 text-sm font-mono focus:border-[#17C964] focus:outline-none"
                 />
 

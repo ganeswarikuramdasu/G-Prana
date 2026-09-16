@@ -244,7 +244,9 @@ public class CardService {
             throw ApiException.badRequest("Scanned QR code content is required.");
         }
         String token = req.getScannedCode().trim();
-        if (token.contains("NEXUSHEALTH_CARD_TOKEN:")) {
+        if (token.contains("PRANACRUX_CARD_TOKEN:")) {
+            token = token.replace("PRANACRUX_CARD_TOKEN:", "").trim();
+        } else if (token.contains("NEXUSHEALTH_CARD_TOKEN:")) {
             token = token.replace("NEXUSHEALTH_CARD_TOKEN:", "").trim();
         }
 
@@ -532,7 +534,7 @@ public class CardService {
         out.put("revokedAt", c.getRevokedAt() != null ? c.getRevokedAt().toString() : null);
         out.put("replacedBy", c.getReplacedBy());
         out.put("pinCode", c.getPinCode());
-        out.put("qrCodeData", c.getQrCodeData() != null ? c.getQrCodeData() : "NEXUSHEALTH_CARD_TOKEN:" + c.getSecureToken());
+        out.put("qrCodeData", c.getQrCodeData() != null ? c.getQrCodeData() : "PRANACRUX_CARD_TOKEN:" + c.getSecureToken());
         return out;
     }
 

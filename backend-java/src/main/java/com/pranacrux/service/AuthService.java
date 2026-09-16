@@ -276,7 +276,7 @@ public class AuthService {
         int cardSeq = 1000 + RANDOM.nextInt(8999);
         String cardIdentifier = "NX-CARD-" + globalHealthId.replace("NH-IND-2026-", "") + "-" + cardSeq;
         String secureToken = "NXAC-" + randomHex(24);
-        String qrCodeData = "NEXUSHEALTH_CARD_TOKEN:" + secureToken;
+        String qrCodeData = "PRANACRUX_CARD_TOKEN:" + secureToken;
         String cardId = "card_" + System.currentTimeMillis();
 
         AccessCard card = AccessCard.builder()
@@ -326,7 +326,7 @@ public class AuthService {
         lifestyle.put("alcohol", "Never");
         lifestyle.put("exerciseDaysPerWeek", 3);
         profileOut.put("lifestyle", lifestyle);
-        profileOut.put("qrCodeData", "NEXUSHEALTH:" + globalHealthId + ":" + name + ":" + bloodGroup);
+        profileOut.put("qrCodeData", "PRANACRUX:" + globalHealthId + ":" + name + ":" + bloodGroup);
 
         Map<String, Object> cardOut = new LinkedHashMap<>();
         cardOut.put("id", cardId);
