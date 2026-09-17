@@ -58,6 +58,23 @@ public class ComplaintService {
             userName = "User";
         }
 
+        String targetType = req.getTargetType() != null ? req.getTargetType().trim().toUpperCase() : "";
+        if (targetType.isBlank()) {
+            if (!isBlank(req.getRelatedHospitalId()) || !isBlank(req.getRelatedHospitalName())) {
+                targetType = "HOSPITAL";
+            } else if (!isBlank(req.getRelatedDoctorId()) || !isBlank(req.getRelatedDoctorName())) {
+                targetType = "DOCTOR";
+            } else {
+                targetType = "SUPER_ADMIN";
+            }
+        }
+        if ("HOSPITAL".equals(targetType) && isBlank(req.getRelatedHospitalId()) && isBlank(req.getRelatedHospitalName())) {
+            throw ApiException.badRequest("Please select the hospital you want to complain about.");
+        }
+        if ("DOCTOR".equals(targetType) && isBlank(req.getRelatedDoctorId()) && isBlank(req.getRelatedDoctorName())) {
+            throw ApiException.badRequest("Please select the doctor you want to complain about.");
+        }
+
         Complaint complaint = Complaint.builder()
                 .id("comp_" + System.currentTimeMillis() + "_" + (int) (Math.random() * 1000))
                 .complainantRole(role)
@@ -72,6 +89,9 @@ public class ComplaintService {
                 .relatedAccessLogId(req.getRelatedAccessLogId())
                 .relatedDoctorId(req.getRelatedDoctorId())
                 .relatedDoctorName(req.getRelatedDoctorName())
+                .relatedHospitalId(req.getRelatedHospitalId())
+                .relatedHospitalName(req.getRelatedHospitalName())
+                .targetType(targetType)
                 .accessedMethod(req.getAccessedMethod())
                 .status("OPEN")
                 .build();
@@ -79,9 +99,10 @@ public class ComplaintService {
 
         String targetHealthId = req.getRelatedPatientHealthId();
         auditLogService.log(userName, role, "COMPLAINT_RAISED", targetHealthId,
-                "Filed complaint #" + complaint.getId() + " in " + req.getModule() + ": " + complaint.getTitle());
+                "Filed complaint #" + complaint.getId() + " in " + req.getModule() + " against "
+                        + targetType.replace("_", " ") + ": " + complaint.getTitle());
 
-        return ApiResponse.ok("Complaint filed successfully. The Super Admin team will review it.")
+        return ApiResponse.ok("Complaint filed successfully. It will be routed to the relevant authority.")
                 .with("complaint", toPublic(complaint));
     }
 
@@ -215,6 +236,9 @@ public class ComplaintService {
         out.put("relatedAccessLogId", c.getRelatedAccessLogId());
         out.put("relatedDoctorId", c.getRelatedDoctorId());
         out.put("relatedDoctorName", c.getRelatedDoctorName());
+        out.put("relatedHospitalId", c.getRelatedHospitalId());
+        out.put("relatedHospitalName", c.getRelatedHospitalName());
+        out.put("targetType", c.getTargetType());
         out.put("accessedMethod", c.getAccessedMethod());
         out.put("status", c.getStatus());
         out.put("resolutionNote", c.getResolutionNote());

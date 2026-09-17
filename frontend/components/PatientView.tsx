@@ -346,6 +346,30 @@ export const PatientView: React.FC<PatientViewProps> = ({
     }
   };
 
+  const deleteVital = async (vital: any) => {
+    if (vital.id) {
+      if (!window.confirm("Delete this vitals reading? This cannot be undone.")) return;
+      try {
+        const res = await fetch("/api/medical-records/delete", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ recordId: vital.id }),
+        });
+        const data = await parseResponseSafe<any>(res, { success: false });
+        if (!res.ok || !data || !data.success) {
+          alert(data?.message || "Failed to delete the vitals reading. Please try again.");
+          return;
+        }
+        setVitalsHistory((prev) => prev.filter((v: any) => v.id !== vital.id));
+      } catch (err) {
+        console.warn("Failed to delete vitals reading:", err);
+        alert("Could not reach the server. Please try again.");
+      }
+    } else {
+      setVitalsHistory((prev) => prev.filter((v: any) => v !== vital));
+    }
+  };
+
   const approvedHospitals = hospitals.filter((h) => h.status === "APPROVED" || h.status === "ACTIVE" || !h.status);
   const activeHospitalsList = approvedHospitals.length > 0 ? approvedHospitals : hospitals;
 
@@ -515,6 +539,7 @@ export const PatientView: React.FC<PatientViewProps> = ({
     const savedVitals = (records || [])
       .filter((r: any) => r.patientId === pid && r.vitals && typeof r.vitals === "object" && Object.keys(r.vitals).length > 0)
       .map((r: any) => ({
+        id: r.id,
         date: (r.vitals && r.vitals.date) || r.date || "",
         bpSystolic: r.vitals.bpSystolic,
         bpDiastolic: r.vitals.bpDiastolic,
@@ -1808,12 +1833,13 @@ export const PatientView: React.FC<PatientViewProps> = ({
                       <th className="py-2.5 px-3">SpO2</th>
                       <th className="py-2.5 px-3">Weight</th>
                       <th className="py-2.5 px-3">Status</th>
+                      <th className="py-2.5 px-3">Action</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-200/80 text-slate-800">
                     {vitalsHistory.length === 0 ? (
                       <tr>
-                        <td colSpan={7} className="py-8 text-center">
+                        <td colSpan={8} className="py-8 text-center">
                           <Heart className="w-7 h-7 text-slate-300 mx-auto mb-2" />
                           <p className="text-sm font-bold text-slate-500">No vitals logged yet</p>
                           <p className="text-[11px] text-slate-400 mt-1">
@@ -1834,6 +1860,15 @@ export const PatientView: React.FC<PatientViewProps> = ({
                           <span className="px-2 py-0.5 bg-[#E9FBF1] text-[#17C964] border border-[#17C964]/40 rounded text-[10px] font-bold">
                             NORMAL
                           </span>
+                        </td>
+                        <td className="py-3 px-3">
+                          <button
+                            onClick={() => deleteVital(item)}
+                            title="Delete this vitals reading"
+                            className="p-1.5 rounded-lg text-slate-400 hover:text-[#E23A2E] hover:bg-[#FDECE8] transition"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
                         </td>
                       </tr>
                       ))
@@ -2147,6 +2182,8 @@ export const PatientView: React.FC<PatientViewProps> = ({
               }}
               linkedAccess={linkedAccessEvent}
               onLinkedAccessCleared={() => setLinkedAccessEvent(null)}
+              doctors={doctors}
+              hospitals={hospitals}
             />
           </div>
         )}
@@ -2714,7 +2751,7 @@ className="w-full bg-[#EDF1F5] border border-slate-200 rounded-xl px-3 py-2.5 te
                     setVitalsFormError(data?.message || "Failed to save vitals reading. Please try again.");
                     return;
                   }
-                  const saved = data.record && data.record.vitals ? { ...data.record.vitals } : newLog;
+                  const saved = data.record && data.record.vitals ? { ...data.record.vitals, id: data.record.id } : { ...newLog };
                   setVitalsHistory((prev) => [...prev, saved]);
                   setShowVitalsModal(false);
                   runCareHealthCheck(newLog);

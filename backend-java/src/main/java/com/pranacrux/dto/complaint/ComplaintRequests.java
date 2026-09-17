@@ -15,6 +15,9 @@ public class ComplaintRequests {
         private String relatedAccessLogId;
         private String relatedDoctorId;
         private String relatedDoctorName;
+        private String relatedHospitalId;
+        private String relatedHospitalName;
+        private String targetType;
         private String accessedMethod;
 
         public String getRole() { return role; }
@@ -41,6 +44,12 @@ public class ComplaintRequests {
         public void setRelatedDoctorId(String relatedDoctorId) { this.relatedDoctorId = relatedDoctorId; }
         public String getRelatedDoctorName() { return relatedDoctorName; }
         public void setRelatedDoctorName(String relatedDoctorName) { this.relatedDoctorName = relatedDoctorName; }
+        public String getRelatedHospitalId() { return relatedHospitalId; }
+        public void setRelatedHospitalId(String relatedHospitalId) { this.relatedHospitalId = relatedHospitalId; }
+        public String getRelatedHospitalName() { return relatedHospitalName; }
+        public void setRelatedHospitalName(String relatedHospitalName) { this.relatedHospitalName = relatedHospitalName; }
+        public String getTargetType() { return targetType; }
+        public void setTargetType(String targetType) { this.targetType = targetType; }
         public String getAccessedMethod() { return accessedMethod; }
         public void setAccessedMethod(String accessedMethod) { this.accessedMethod = accessedMethod; }
     }

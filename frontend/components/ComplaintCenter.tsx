@@ -25,6 +25,9 @@ interface ComplaintItem {
   relatedAccessLogId?: string;
   relatedDoctorId?: string;
   relatedDoctorName?: string;
+  relatedHospitalId?: string;
+  relatedHospitalName?: string;
+  targetType?: string;
   accessedMethod?: string;
   status: "OPEN" | "IN_REVIEW" | "TAKEN_ACTION" | "RESOLVED" | "REJECTED";
   resolutionNote?: string;
@@ -34,12 +37,19 @@ interface ComplaintItem {
   resolvedAt?: string;
 }
 
+interface ComplaintTargetOption {
+  id: string;
+  name?: string;
+}
+
 interface ComplaintCenterProps {
   appUser: { id: string; name: string; email: string; role: string };
   module: string;
   patientContext?: { patientId: string; patientHealthId: string; patientName?: string };
   linkedAccess?: LinkedAccessEvent | null;
   onLinkedAccessCleared?: () => void;
+  doctors?: ComplaintTargetOption[];
+  hospitals?: ComplaintTargetOption[];
 }
 
 const CATEGORIES = [
@@ -66,6 +76,8 @@ export const ComplaintCenter: React.FC<ComplaintCenterProps> = ({
   patientContext,
   linkedAccess,
   onLinkedAccessCleared,
+  doctors,
+  hospitals,
 }) => {
   const [complaints, setComplaints] = useState<ComplaintItem[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -75,6 +87,9 @@ export const ComplaintCenter: React.FC<ComplaintCenterProps> = ({
   const [category, setCategory] = useState<string>("GENERAL");
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
+  const [targetType, setTargetType] = useState<"SUPER_ADMIN" | "DOCTOR" | "HOSPITAL">("SUPER_ADMIN");
+  const [targetDoctorId, setTargetDoctorId] = useState<string>("");
+  const [targetHospitalId, setTargetHospitalId] = useState<string>("");
 
   const [resolvingId, setResolvingId] = useState<string | null>(null);
   const [resolveStatus, setResolveStatus] = useState<string>("IN_REVIEW");
@@ -113,6 +128,10 @@ export const ComplaintCenter: React.FC<ComplaintCenterProps> = ({
     if (canRaise && linkedAccess && (linkedAccess.accessLogId || linkedAccess.doctorName)) {
       setMsg(null);
       setShowForm(true);
+      if (linkedAccess.doctorId || linkedAccess.doctorName) {
+        setTargetType("DOCTOR");
+        if (linkedAccess.doctorId) setTargetDoctorId(linkedAccess.doctorId);
+      }
     }
   }, [linkedAccess, canRaise]);
 
@@ -120,6 +139,9 @@ export const ComplaintCenter: React.FC<ComplaintCenterProps> = ({
     setCategory("GENERAL");
     setTitle("");
     setDescription("");
+    setTargetType("SUPER_ADMIN");
+    setTargetDoctorId("");
+    setTargetHospitalId("");
     setShowForm(false);
     if (linkedAccess && onLinkedAccessCleared) onLinkedAccessCleared();
   };
@@ -129,6 +151,16 @@ export const ComplaintCenter: React.FC<ComplaintCenterProps> = ({
       setMsg({ type: "error", text: "Please provide a complaint title and description." });
       return;
     }
+    if (targetType === "DOCTOR" && !targetDoctorId && !linkedAccess?.doctorId) {
+      setMsg({ type: "error", text: "Please select the doctor you want to complain about." });
+      return;
+    }
+    if (targetType === "HOSPITAL" && !targetHospitalId) {
+      setMsg({ type: "error", text: "Please select the hospital you want to complain about." });
+      return;
+    }
+    const selectedDoctor = targetType === "DOCTOR" ? (doctors || []).find((d) => d.id === (targetDoctorId || linkedAccess?.doctorId)) : undefined;
+    const selectedHospital = targetType === "HOSPITAL" ? (hospitals || []).find((h) => h.id === targetHospitalId) : undefined;
     try {
       const res = await fetch("/api/complaints/raise", {
         method: "POST",
@@ -144,14 +176,17 @@ export const ComplaintCenter: React.FC<ComplaintCenterProps> = ({
           relatedPatientId: patientContext?.patientId || linkedAccess?.patientId,
           relatedPatientHealthId: patientContext?.patientHealthId || linkedAccess?.patientHealthId,
           relatedAccessLogId: linkedAccess?.accessLogId,
-          relatedDoctorId: linkedAccess?.doctorId,
-          relatedDoctorName: linkedAccess?.doctorName,
+          relatedDoctorId: linkedAccess?.doctorId || (targetType === "DOCTOR" ? (targetDoctorId || selectedDoctor?.id) : undefined),
+          relatedDoctorName: linkedAccess?.doctorName || (targetType === "DOCTOR" ? selectedDoctor?.name || targetDoctorId : undefined),
+          relatedHospitalId: targetType === "HOSPITAL" ? (targetHospitalId || selectedHospital?.id) : undefined,
+          relatedHospitalName: targetType === "HOSPITAL" ? (selectedHospital?.name || targetHospitalId) : undefined,
+          targetType,
           accessedMethod: linkedAccess?.accessedMethod,
         }),
       });
       const data = await parseResponseSafe<any>(res, { success: false });
       if (data?.success) {
-        setMsg({ type: "success", text: "Complaint filed successfully. The Super Admin team will review it." });
+        setMsg({ type: "success", text: "Complaint filed successfully. It will be routed to the relevant authority." });
         resetForm();
         fetchComplaints();
       } else {
@@ -249,7 +284,7 @@ export const ComplaintCenter: React.FC<ComplaintCenterProps> = ({
             {isSuperAdmin
               ? "Review and handle every complaint raised by patients. Update the status and reply to patients as it is investigated."
               : canRaise
-              ? "Raise a complaint about access, treatment, records, or privacy. Reviewed by the support team."
+              ? "Raise a complaint against a doctor, a hospital, or the platform support team. Reviewed by the relevant authority."
               : "View and respond to patient complaints. Reply to patients and update complaint status."}
           </p>
         </div>
@@ -291,6 +326,48 @@ export const ComplaintCenter: React.FC<ComplaintCenterProps> = ({
           )}
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs font-bold text-slate-700 mb-1">Complain About</label>
+              <select
+                value={targetType}
+                onChange={(e) => setTargetType(e.target.value as "SUPER_ADMIN" | "DOCTOR" | "HOSPITAL")}
+                className="w-full bg-[#EDF1F5] border border-slate-200 rounded-xl px-3 py-2.5 text-slate-900 outline-none focus:border-[#F2603C]/50 text-xs font-bold"
+              >
+                <option value="SUPER_ADMIN">Platform / Super Admin</option>
+                <option value="DOCTOR">A Doctor</option>
+                <option value="HOSPITAL">A Hospital</option>
+              </select>
+            </div>
+            {targetType === "DOCTOR" && (
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Select Doctor</label>
+                <select
+                  value={targetDoctorId || linkedAccess?.doctorId || ""}
+                  onChange={(e) => setTargetDoctorId(e.target.value)}
+                  className="w-full bg-[#EDF1F5] border border-slate-200 rounded-xl px-3 py-2.5 text-slate-900 outline-none focus:border-[#F2603C]/50 text-xs font-bold"
+                >
+                  <option value="">{linkedAccess?.doctorName ? `${linkedAccess.doctorName} (from access event)` : "Choose a doctor..."}</option>
+                  {(doctors || []).map((d) => (
+                    <option key={d.id} value={d.id}>{d.name || d.id}</option>
+                  ))}
+                </select>
+              </div>
+            )}
+            {targetType === "HOSPITAL" && (
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Select Hospital</label>
+                <select
+                  value={targetHospitalId}
+                  onChange={(e) => setTargetHospitalId(e.target.value)}
+                  className="w-full bg-[#EDF1F5] border border-slate-200 rounded-xl px-3 py-2.5 text-slate-900 outline-none focus:border-[#F2603C]/50 text-xs font-bold"
+                >
+                  <option value="">Choose a hospital...</option>
+                  {(hospitals || []).map((h) => (
+                    <option key={h.id} value={h.id}>{h.name || h.id}</option>
+                  ))}
+                </select>
+              </div>
+            )}
             <div>
               <label className="block text-xs font-bold text-slate-700 mb-1">Category</label>
               <select
@@ -356,7 +433,12 @@ export const ComplaintCenter: React.FC<ComplaintCenterProps> = ({
                 <p className="font-bold text-slate-900 text-sm">{c.title}</p>
                 <p className="text-[10px] text-slate-500">
                   {c.category.replace(/_/g, " ")} • {c.module} • Filed by {c.complainantName}
-                  {c.relatedDoctorName ? ` • Regarding ${c.relatedDoctorName}` : ""}
+                  {" • About "}
+                  {c.targetType === "HOSPITAL"
+                    ? (c.relatedHospitalName || c.relatedHospitalId || "Hospital")
+                    : c.targetType === "DOCTOR"
+                    ? (c.relatedDoctorName || c.relatedDoctorId || "Doctor")
+                    : "Platform / Super Admin"}
                 </p>
                 {c.accessedMethod && c.relatedAccessLogId && (
                   <p className="text-[10px] font-mono text-[#17C964]">

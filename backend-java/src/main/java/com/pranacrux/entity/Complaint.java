@@ -59,6 +59,15 @@ public class Complaint {
     @Column(name = "related_doctor_name", length = 200)
     private String relatedDoctorName;
 
+    @Column(name = "related_hospital_id", length = 64)
+    private String relatedHospitalId;
+
+    @Column(name = "related_hospital_name", length = 200)
+    private String relatedHospitalName;
+
+    @Column(name = "target_type", length = 32)
+    private String targetType;
+
     @Column(name = "accessed_method", length = 64)
     private String accessedMethod;
 
@@ -121,6 +130,12 @@ public class Complaint {
     public void setRelatedDoctorId(String relatedDoctorId) { this.relatedDoctorId = relatedDoctorId; }
     public String getRelatedDoctorName() { return relatedDoctorName; }
     public void setRelatedDoctorName(String relatedDoctorName) { this.relatedDoctorName = relatedDoctorName; }
+    public String getRelatedHospitalId() { return relatedHospitalId; }
+    public void setRelatedHospitalId(String relatedHospitalId) { this.relatedHospitalId = relatedHospitalId; }
+    public String getRelatedHospitalName() { return relatedHospitalName; }
+    public void setRelatedHospitalName(String relatedHospitalName) { this.relatedHospitalName = relatedHospitalName; }
+    public String getTargetType() { return targetType; }
+    public void setTargetType(String targetType) { this.targetType = targetType; }
     public String getAccessedMethod() { return accessedMethod; }
     public void setAccessedMethod(String accessedMethod) { this.accessedMethod = accessedMethod; }
     public String getStatus() { return status; }
@@ -153,6 +168,9 @@ public class Complaint {
         public Builder relatedAccessLogId(String v) { c.relatedAccessLogId = v; return this; }
         public Builder relatedDoctorId(String v) { c.relatedDoctorId = v; return this; }
         public Builder relatedDoctorName(String v) { c.relatedDoctorName = v; return this; }
+        public Builder relatedHospitalId(String v) { c.relatedHospitalId = v; return this; }
+        public Builder relatedHospitalName(String v) { c.relatedHospitalName = v; return this; }
+        public Builder targetType(String v) { c.targetType = v; return this; }
         public Builder accessedMethod(String v) { c.accessedMethod = v; return this; }
         public Builder status(String v) { c.status = v; return this; }
         public Builder resolutionNote(String v) { c.resolutionNote = v; return this; }
