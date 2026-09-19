@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🏥 G–Prana
+# 🏥 PranaCrux
 
 ### Global Health Identity & Emergency Access
 _A Blockchain-Inspired Digital Health Identity & Smart Healthcare Platform_
